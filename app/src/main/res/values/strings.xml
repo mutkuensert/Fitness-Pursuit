@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Fitness Pursuit</string>
+    <string name="ask_weight">How many kilograms are you going to workout?</string>
+    <string name="calculate">Calculate</string>
+    <string name="warmup_set_1_description">Very light weights.</string>
+    <string name="rep">Rep</string>
+    <string name="reps">Reps</string>
 </resources>
