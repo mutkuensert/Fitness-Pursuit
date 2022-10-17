@@ -1,5 +1,6 @@
 package com.mutkuensert.fitnesspursuit.ui.warmupsetsscreen
 
+import android.widget.Toast
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -25,7 +26,7 @@ import com.mutkuensert.fitnesspursuit.ui.MyCardWithShadow
 fun WarmupSetsScreen(viewModel: WarmupSetsViewModel = viewModel()){
     val context = LocalContext.current
 
-    val (weightInput, weightInputSetter) = rememberSaveable { mutableStateOf("") }
+    val weightInput by viewModel.weightInput.observeAsState()
 
     val set2Kg by viewModel.set2Kg.observeAsState()
     val set3Kg by viewModel.set3Kg.observeAsState()
@@ -45,8 +46,8 @@ fun WarmupSetsScreen(viewModel: WarmupSetsViewModel = viewModel()){
             Row {
 
                 OutlinedTextField(
-                    value = weightInput,
-                    onValueChange = weightInputSetter,
+                    value = weightInput!!,
+                    onValueChange = { viewModel.replaceCommaWithDotAndAllowOnlyOneDot(it) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.width(150.dp)
@@ -54,7 +55,7 @@ fun WarmupSetsScreen(viewModel: WarmupSetsViewModel = viewModel()){
                 
                 Spacer(modifier = Modifier.width(10.dp))
 
-                MyButtonWithShadow(onClick = { if(weightInput.isNotEmpty()) viewModel.calculateWarmupSetsWeights(weightInput.toDouble()) }) {
+                MyButtonWithShadow(onClick = { if(weightInput!!.isNotEmpty()) viewModel.calculateWarmupSetsWeights(weightInput!!.toDouble()) }) {
                     Text(text = context.getString(R.string.calculate))
                 }
             }
