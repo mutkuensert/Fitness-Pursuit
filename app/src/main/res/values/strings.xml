@@ -5,4 +5,7 @@
     <string name="warmup_set_1_description">Very light weights.</string>
     <string name="rep">Rep</string>
     <string name="reps">Reps</string>
+    <string name="weight_you_can_lift">Weight you can lift</string>
+    <string name="number_of_reps">Number of reps</string>
+    <string name="et_al">et al</string>
 </resources>
