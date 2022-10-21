@@ -25,10 +25,9 @@ fun MyCardWithShadow(content: @Composable () -> Unit){
 
 
 @Composable
-fun MyButtonWithShadow(modifier: Modifier = Modifier.padding(5.dp), onClick: () -> Unit, content: @Composable () -> Unit){
+fun MyButtonWithShadow(onClick: () -> Unit, content: @Composable () -> Unit){
     Button(onClick = onClick,
-        elevation = ButtonDefaults.elevation(defaultElevation = 10.dp),
-        modifier = modifier,
+        elevation = ButtonDefaults.elevation(defaultElevation = 5.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.surface)) {
         content()
     }
