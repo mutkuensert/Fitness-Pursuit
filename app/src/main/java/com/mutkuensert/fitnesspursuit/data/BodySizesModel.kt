@@ -4,8 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity
-data class BodySizes(
+@Entity(tableName = "BodySizes")
+data class BodySizesModel(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val athleteName: String,
     val date: Date,
