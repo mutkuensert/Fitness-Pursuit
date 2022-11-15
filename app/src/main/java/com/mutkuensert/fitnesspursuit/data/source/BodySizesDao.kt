@@ -9,14 +9,14 @@ import java.util.*
 interface BodySizesDao {
 
     @Query("SELECT * FROM bodysizes")
-    fun getAllBodySizes(): List<BodySizes>
+    suspend fun getAllBodySizes(): List<BodySizes>
 
     @Query("SELECT * FROM bodysizes WHERE id = :bodySizeId")
-    fun loadBodySizesById(bodySizeId: Int): List<BodySizes>
+    suspend fun loadBodySizesById(bodySizeId: Int): List<BodySizes>
 
     @Query("SELECT * FROM bodysizes WHERE athleteName LIKE :athleteName")
-    fun loadAllBodySizesByName(athleteName: String): List<BodySizes>
+    suspend fun loadAllBodySizesByName(athleteName: String): List<BodySizes>
 
     @Query("SELECT * FROM bodysizes WHERE athleteName LIKE :athleteName AND date = :targetDate")
-    fun findBodySizesOfUserOnDate(athleteName: String, targetDate: Date): BodySizes
+    suspend fun findBodySizesOfUserOnDate(athleteName: String, targetDate: Date): BodySizes
 }

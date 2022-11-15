@@ -1,5 +1,6 @@
 package com.mutkuensert.fitnesspursuit.ui.warmupsetsscreen
 
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -18,8 +19,7 @@ import com.mutkuensert.fitnesspursuit.ui.MyButtonWithShadow
 import com.mutkuensert.fitnesspursuit.ui.MyCardWithShadow
 
 @Composable
-fun WarmupSetsScreen(viewModel: WarmupSetsViewModel = viewModel()){
-    val context = LocalContext.current
+fun WarmupSetsScreen(context: Context, viewModel: WarmupSetsViewModel = viewModel()){
 
     val weightInput by viewModel.weightInput.observeAsState()
 
@@ -36,7 +36,7 @@ fun WarmupSetsScreen(viewModel: WarmupSetsViewModel = viewModel()){
 
             MyCardWithShadow { Text(text = context.getString(R.string.ask_weight)) }
 
-            HeightSpacerInWarmupSetsScreen()
+            Spacer(Modifier.height(30.dp))
 
             Row {
 
@@ -72,7 +72,7 @@ fun WarmupSetsScreen(viewModel: WarmupSetsViewModel = viewModel()){
                     }
                 }
 
-                HeightSpacerInWarmupSetsScreen()
+                Spacer(Modifier.height(30.dp))
 
                 MyCardWithShadow {
                     Row {
@@ -81,7 +81,7 @@ fun WarmupSetsScreen(viewModel: WarmupSetsViewModel = viewModel()){
                     }
                 }
 
-                HeightSpacerInWarmupSetsScreen()
+                Spacer(Modifier.height(30.dp))
 
                 MyCardWithShadow {
                     Row {
@@ -91,7 +91,7 @@ fun WarmupSetsScreen(viewModel: WarmupSetsViewModel = viewModel()){
                 }
 
 
-                HeightSpacerInWarmupSetsScreen()
+                Spacer(Modifier.height(30.dp))
 
                 MyCardWithShadow {
                     Row {
@@ -100,7 +100,7 @@ fun WarmupSetsScreen(viewModel: WarmupSetsViewModel = viewModel()){
                     }
                 }
 
-                HeightSpacerInWarmupSetsScreen()
+                Spacer(Modifier.height(30.dp))
 
                 MyCardWithShadow {
                     Row {
@@ -114,16 +114,11 @@ fun WarmupSetsScreen(viewModel: WarmupSetsViewModel = viewModel()){
 
 }
 
-@Composable
-fun HeightSpacerInWarmupSetsScreen(){
-    Spacer(modifier = Modifier.height(30.dp))
-}
-
 
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewWarmupSetsScreen(){
     FitnessPursuitTheme {
-        WarmupSetsScreen()
+        WarmupSetsScreen(LocalContext.current)
     }
 }

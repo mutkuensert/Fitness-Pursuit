@@ -46,8 +46,3 @@ fun MyButtonWithShadowPreview(){
     }
 
 }
-
-@Composable
-fun HeightSpacer(value: Dp){
-    Spacer(modifier = Modifier.height(value))
-}

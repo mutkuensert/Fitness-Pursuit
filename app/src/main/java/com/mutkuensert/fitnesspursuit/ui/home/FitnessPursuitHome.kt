@@ -1,5 +1,6 @@
 package com.mutkuensert.fitnesspursuit.ui.home
 
+import android.content.Context
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -14,15 +15,14 @@ import com.mutkuensert.fitnesspursuit.ui.MyNavHost
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Preview(showSystemUi = true)
 @Composable
-fun FitnessPursuitHome(){
+fun FitnessPursuitHome(context: Context){
     val scaffoldState = rememberScaffoldState()
     val navController = rememberNavController()
     val scope = rememberCoroutineScope()
     Scaffold(
         scaffoldState = scaffoldState,
-        topBar = { MyTopAppBar(scope = scope, scaffoldState = scaffoldState) },
+        topBar = { MyTopAppBar(context = context, scope = scope, scaffoldState = scaffoldState) },
         drawerContent = {
             FitnessPursuitDrawer(
                 {scope.launch { scaffoldState.drawerState.close() }},
@@ -30,13 +30,15 @@ fun FitnessPursuitHome(){
             )
         }
     ) { padding ->
-        MyNavHost(modifier = Modifier.padding(padding), navController = navController)
+        MyNavHost(
+            context = context,
+            modifier = Modifier.padding(padding),
+            navController = navController)
     }
 }
 
 @Composable
-fun MyTopAppBar(scope: CoroutineScope, scaffoldState: ScaffoldState){
-    val context = LocalContext.current
+fun MyTopAppBar(context: Context, scope: CoroutineScope, scaffoldState: ScaffoldState){
     TopAppBar(
         title = { Text(text = "Fitness Pursuit")},
         navigationIcon = {
@@ -45,4 +47,10 @@ fun MyTopAppBar(scope: CoroutineScope, scaffoldState: ScaffoldState){
             }
         }
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FitnessPursuitHomePreview(){
+    FitnessPursuitHome(context = LocalContext.current)
 }

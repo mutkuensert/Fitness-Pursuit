@@ -1,5 +1,6 @@
 package com.mutkuensert.fitnesspursuit.ui.onermscreen
 
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
@@ -16,14 +17,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mutkuensert.fitnesspursuit.R
-import com.mutkuensert.fitnesspursuit.ui.HeightSpacer
 import com.mutkuensert.fitnesspursuit.ui.MyButtonWithShadow
 import com.mutkuensert.fitnesspursuit.ui.MyCardWithShadow
 
 
 @Composable
-fun OneRmScreen(viewModel: OneRmViewModel = viewModel()){
-    val context = LocalContext.current
+fun OneRmScreen(context: Context, viewModel: OneRmViewModel = viewModel()){
 
     val weightInput by viewModel.weightInput.observeAsState()
     val repsInput by viewModel.repsInput.observeAsState()
@@ -42,7 +41,7 @@ fun OneRmScreen(viewModel: OneRmViewModel = viewModel()){
         horizontalAlignment = Alignment.CenterHorizontally) {
             Column(modifier = Modifier
                 .fillMaxHeight()
-                .width(280.dp),
+                .width(300.dp),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center) {
 
@@ -60,7 +59,7 @@ fun OneRmScreen(viewModel: OneRmViewModel = viewModel()){
                 }
 
 
-                HeightSpacer(20.dp)
+                Spacer(Modifier.height(20.dp))
 
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start) {
 
@@ -76,7 +75,7 @@ fun OneRmScreen(viewModel: OneRmViewModel = viewModel()){
                 }
 
 
-                HeightSpacer(15.dp)
+                Spacer(Modifier.height(15.dp))
 
                 MyButtonWithShadow(
                     onClick = {
@@ -85,31 +84,31 @@ fun OneRmScreen(viewModel: OneRmViewModel = viewModel()){
                     Text(text = context.getString(R.string.calculate))
                 }
 
-                HeightSpacer(20.dp)
+                Spacer(Modifier.height(20.dp))
 
                 MyCardWithShadow { Text(text = "Epley: $epleyRM")}
 
-                HeightSpacer(15.dp)
+                Spacer(Modifier.height(15.dp))
 
                 MyCardWithShadow { Text(text = "Brzycki: $brzyckiRM")}
 
-                HeightSpacer(15.dp)
+                Spacer(Modifier.height(15.dp))
 
                 MyCardWithShadow { Text(text = "McGlothin: $mcglothinRM")}
 
-                HeightSpacer(15.dp)
+                Spacer(Modifier.height(15.dp))
 
                 MyCardWithShadow { Text(text = "Lombardi: $lombardiRM")}
 
-                HeightSpacer(15.dp)
+                Spacer(Modifier.height(15.dp))
 
                 MyCardWithShadow { Text(text = "Mayhew ${context.getString(R.string.et_al)}.: $mayhewRM")}
 
-                HeightSpacer(15.dp)
+                Spacer(Modifier.height(15.dp))
 
                 MyCardWithShadow { Text(text = "O'Conner ${context.getString(R.string.et_al)}. $oconnerRM")}
 
-                HeightSpacer(15.dp)
+                Spacer(Modifier.height(15.dp))
 
                 MyCardWithShadow { Text(text = "Wathen: $wathenRM")}
 
@@ -123,5 +122,5 @@ fun OneRmScreen(viewModel: OneRmViewModel = viewModel()){
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewOneRmScreen(){
-    OneRmScreen()
+    OneRmScreen(LocalContext.current)
 }
