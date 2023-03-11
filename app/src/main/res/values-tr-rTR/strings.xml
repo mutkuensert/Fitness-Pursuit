@@ -12,4 +12,16 @@
     <string name="app_bar_menu_button_description">Uygulama menüsü</string>
     <string name="close_navigation_menu">Uygulama menüsünü kapat</string>
     <string name="app_icon_description">Uygulama logosu</string>
+    <string name="bicep">Bicep</string>
+    <string name="left">Sol</string>
+    <string name="right">Sağ</string>
+    <string name="forearm">Ön kol</string>
+    <string name="calf">Kalf</string>
+    <string name="chest">Göğüs</string>
+    <string name="hips">Kalça</string>
+    <string name="neck">Boyun</string>
+    <string name="shoulders">Omuz</string>
+    <string name="thigh">Bacak</string>
+    <string name="save">Kaydet</string>
+    <string name="waist">Bel</string>
 </resources>

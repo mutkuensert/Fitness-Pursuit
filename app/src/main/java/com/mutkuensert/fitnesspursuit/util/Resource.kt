@@ -19,9 +19,7 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
         fun <T> standby(data: T?): Resource<T> {
             return Resource(Status.STANDBY, data, null)
         }
-
     }
-
 }
 
 enum class Status {

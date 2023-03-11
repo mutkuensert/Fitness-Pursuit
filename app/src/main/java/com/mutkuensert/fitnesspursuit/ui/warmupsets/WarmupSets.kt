@@ -1,56 +1,70 @@
-package com.mutkuensert.fitnesspursuit.ui.warmupsetsscreen
+package com.mutkuensert.fitnesspursuit.ui.warmupsets
 
 import android.content.Context
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mutkuensert.fitnesspursuit.R
-import com.mutkuensert.fitnesspursuit.ui.theme.FitnessPursuitTheme
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.mutkuensert.fitnesspursuit.ui.MyButtonWithShadow
-import com.mutkuensert.fitnesspursuit.ui.MyCardWithShadow
+import com.mutkuensert.fitnesspursuit.R
+import com.mutkuensert.fitnesspursuit.ui.components.ShadowedButton
+import com.mutkuensert.fitnesspursuit.ui.components.ShadowedCard
+import com.mutkuensert.fitnesspursuit.ui.theme.FitnessPursuitTheme
 
 @Composable
-fun WarmupSetsScreen(context: Context, viewModel: WarmupSetsViewModel = viewModel()){
-
-    val weightInput by viewModel.weightInput.observeAsState()
-
-    val set2Kg by viewModel.set2Kg.observeAsState()
-    val set3Kg by viewModel.set3Kg.observeAsState()
-    val set4Kg by viewModel.set4Kg.observeAsState()
-    val set5Kg by viewModel.set5Kg.observeAsState()
+fun WarmupSets(context: Context, viewModel: WarmupSetsViewModel = viewModel()) {
+    val weightInput by viewModel.weightInput.collectAsStateWithLifecycle()
+    val set2 by viewModel.set2.collectAsStateWithLifecycle()
+    val set3 by viewModel.set3.collectAsStateWithLifecycle()
+    val set4 by viewModel.set4.collectAsStateWithLifecycle()
+    val set5 by viewModel.set5.collectAsStateWithLifecycle()
 
     Surface {
-
-        Column(modifier = Modifier.fillMaxSize(),
+        Column(
+            modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center) {
-
-            MyCardWithShadow { Text(text = context.getString(R.string.ask_weight)) }
+            verticalArrangement = Arrangement.Center
+        ) {
+            ShadowedCard { Text(text = context.getString(R.string.ask_weight)) }
 
             Spacer(Modifier.height(30.dp))
 
             Row {
-
                 OutlinedTextField(
-                    value = weightInput!!,
+                    value = weightInput,
                     onValueChange = { viewModel.replaceCommaWithDotAndAllowOnlyOneDot(it) },
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.width(150.dp)
                 )
-                
+
                 Spacer(modifier = Modifier.width(10.dp))
 
-                MyButtonWithShadow(onClick = { if(weightInput!!.isNotEmpty()) viewModel.calculateWarmupSetsWeights(weightInput!!.toDouble()) }) {
+                ShadowedButton(onClick = {
+                    if (weightInput.isNotEmpty()) {
+                        viewModel.calculateWarmupSetsWeights(
+                            weightInput.toDouble()
+                        )
+                    }
+                }) {
                     Text(text = context.getString(R.string.calculate))
                 }
             }
@@ -64,7 +78,7 @@ fun WarmupSetsScreen(context: Context, viewModel: WarmupSetsViewModel = viewMode
                     .fillMaxWidth()
                     .padding(start = 45.dp)
             ) {
-                MyCardWithShadow {
+                ShadowedCard {
                     Row {
                         Text(text = "Set 1: ")
                         Text(text = context.getString(R.string.warmup_set_1_description))
@@ -74,51 +88,48 @@ fun WarmupSetsScreen(context: Context, viewModel: WarmupSetsViewModel = viewMode
 
                 Spacer(Modifier.height(30.dp))
 
-                MyCardWithShadow {
+                ShadowedCard {
                     Row {
                         Text(text = "Set 2 (55%): ")
-                        set2Kg?.let { Text(text = "$it kg 8 ${context.getString(R.string.reps)}") }
+                        Text(text = "$set2 kg 8 ${context.getString(R.string.reps)}")
                     }
                 }
 
                 Spacer(Modifier.height(30.dp))
 
-                MyCardWithShadow {
+                ShadowedCard {
                     Row {
                         Text(text = "Set 3 (70%): ")
-                        set3Kg?.let { Text(text = "$it kg 5 ${context.getString(R.string.reps)}") }
+                        Text(text = "$set3 kg 5 ${context.getString(R.string.reps)}")
                     }
                 }
 
-
                 Spacer(Modifier.height(30.dp))
 
-                MyCardWithShadow {
+                ShadowedCard {
                     Row {
                         Text(text = "Set 4 (80%): ")
-                        set4Kg?.let { Text(text = "$it kg 3 ${context.getString(R.string.reps)}") }
+                        Text(text = "$set4 kg 3 ${context.getString(R.string.reps)}")
                     }
                 }
 
                 Spacer(Modifier.height(30.dp))
 
-                MyCardWithShadow {
+                ShadowedCard {
                     Row {
                         Text(text = "Set 5 (90%): ")
-                        set5Kg?.let { Text(text = "$it kg 1 ${context.getString(R.string.rep)}") }
+                        Text(text = "$set5 kg 1 ${context.getString(R.string.rep)}")
                     }
                 }
             }
         }
     }
-
 }
-
 
 @Preview(showSystemUi = true)
 @Composable
-fun PreviewWarmupSetsScreen(){
+fun PreviewWarmupSetsScreen() {
     FitnessPursuitTheme {
-        WarmupSetsScreen(LocalContext.current)
+        WarmupSets(LocalContext.current)
     }
 }

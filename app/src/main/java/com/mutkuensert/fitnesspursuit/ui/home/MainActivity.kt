@@ -29,7 +29,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
 }
 
 @Preview(showBackground = true)
@@ -39,4 +38,3 @@ fun DefaultPreview() {
         FitnessPursuitHome(LocalContext.current)
     }
 }
-

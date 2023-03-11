@@ -11,4 +11,16 @@
     <string name="app_bar_menu_button_description">Navigation menu</string>
     <string name="close_navigation_menu">Close navigation menu</string>
     <string name="app_icon_description">App icon</string>
+    <string name="bicep">Bicep</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+    <string name="forearm">Forearm</string>
+    <string name="calf">Calf</string>
+    <string name="chest">Chest</string>
+    <string name="hips">Hips</string>
+    <string name="neck">Neck</string>
+    <string name="shoulders">Shoulders</string>
+    <string name="thigh">Thigh</string>
+    <string name="save">Save</string>
+    <string name="waist">Waist</string>
 </resources>
