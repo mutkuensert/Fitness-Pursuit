@@ -13,15 +13,15 @@ import com.mutkuensert.fitnesspursuit.features.warmupsets.WarmupSets
 fun MyNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    startDestination: String = WARMUPSETSSCREEN
+    startDestination: String = WARMUP_SETS
 ) {
     NavHost(
         modifier = modifier,
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(WARMUPSETSSCREEN) { WarmupSets() }
-        composable(ONERMSCREEN) { OneRm() }
-        composable(BODYSIZESSCREEN) { BodySizes() }
+        composable(WARMUP_SETS) { WarmupSets() }
+        composable(ONE_RM) { OneRm() }
+        composable(BODY_SIZES) { BodySizes() }
     }
 }

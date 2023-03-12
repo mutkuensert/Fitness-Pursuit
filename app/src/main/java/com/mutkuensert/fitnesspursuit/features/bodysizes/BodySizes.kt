@@ -9,8 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,9 +21,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mutkuensert.fitnesspursuit.R
+import com.mutkuensert.fitnesspursuit.ui.theme.TextColors
+import com.mutkuensert.fitnesspursuit.ui.theme.appTypography
 import java.time.LocalDateTime
 
-private const val VERTICAL_SPACE = 15
+private const val VERTICAL_SPACE = 5
 
 @Composable
 fun BodySizes() {
@@ -46,14 +47,13 @@ fun BodySizes() {
 
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(VERTICAL_SPACE.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(VERTICAL_SPACE.dp))
 
-        LeftRightTextField(
+        LeftRightMeasurementField(
             title = context.getString(R.string.bicep),
             left = leftBicep,
             onLeftChange = onLeftBicepChange,
@@ -61,7 +61,7 @@ fun BodySizes() {
             onRightChange = onRightBicepChange
         )
 
-        LeftRightTextField(
+        LeftRightMeasurementField(
             title = context.getString(R.string.forearm),
             left = leftForearm,
             onLeftChange = onLeftForearmChange,
@@ -69,7 +69,7 @@ fun BodySizes() {
             onRightChange = onRightForearmChange
         )
 
-        LeftRightTextField(
+        LeftRightMeasurementField(
             title = context.getString(R.string.calf),
             left = leftCalf,
             onLeftChange = onLeftCalfChange,
@@ -77,7 +77,7 @@ fun BodySizes() {
             onRightChange = onRightCalfChange
         )
 
-        LeftRightTextField(
+        LeftRightMeasurementField(
             title = context.getString(R.string.thigh),
             left = leftThigh,
             onLeftChange = onLeftThighChange,
@@ -86,70 +86,55 @@ fun BodySizes() {
         )
 
         Column(
-            modifier = Modifier.width(120.dp),
+            modifier = Modifier.width(240.dp),
             verticalArrangement = Arrangement.spacedBy(VERTICAL_SPACE.dp)
         ) {
-            OutlinedTextField(
+            MeasurementField(
                 value = chest,
                 onValueChange = onChestChange,
-                placeholder = {
-                    Text(
-                        text = context.getString(R.string.chest)
-                    )
-                },
-                singleLine = true
+                label = context.getString(R.string.chest)
             )
 
-            OutlinedTextField(
+            MeasurementField(
                 value = hips,
                 onValueChange = onHipsChange,
-                placeholder = {
-                    Text(
-                        text = context.getString(R.string.hips)
-                    )
-                },
-                singleLine = true
+                label = context.getString(R.string.hips)
             )
 
-            OutlinedTextField(
+            MeasurementField(
                 value = neck,
                 onValueChange = onNeckChange,
-                placeholder = {
-                    Text(
-                        text = context.getString(R.string.neck)
-                    )
-                },
-                singleLine = true
+                label = context.getString(R.string.neck)
             )
 
-            OutlinedTextField(
+            MeasurementField(
                 value = shoulders,
                 onValueChange = onShouldersChange,
-                placeholder = {
-                    Text(
-                        text = context.getString(R.string.shoulders)
-                    )
-                },
-                singleLine = true
+                label = context.getString(R.string.shoulders)
             )
 
-            OutlinedTextField(
+            MeasurementField(
                 value = waist,
                 onValueChange = onWaistChange,
-                placeholder = {
-                    Text(
-                        text = context.getString(R.string.shoulders)
-                    )
-                },
-                singleLine = true
+                label = context.getString(R.string.waist)
             )
         }
 
-        with(time) { Text(text = "$dayOfMonth.$monthValue.$year $hour:$minute") }
+        Spacer(modifier = Modifier.height(20.dp))
+
+        with(time) {
+            Text(
+                text = "$dayOfMonth.$monthValue.$year $hour:$minute",
+                style = MaterialTheme.appTypography.h6,
+                color = TextColors.viridianGreen
+            )
+        }
 
         Text(
             modifier = Modifier.clickable { },
-            text = context.getString(R.string.save)
+            text = context.getString(R.string.save),
+            style = MaterialTheme.appTypography.h6,
+            color = TextColors.viridianGreen
         )
 
         Spacer(modifier = Modifier.height(VERTICAL_SPACE.dp))
@@ -157,7 +142,7 @@ fun BodySizes() {
 }
 
 @Composable
-fun LeftRightTextField(
+fun LeftRightMeasurementField(
     modifier: Modifier = Modifier,
     title: String,
     left: String,
@@ -165,34 +150,59 @@ fun LeftRightTextField(
     right: String,
     onRightChange: (String) -> Unit
 ) {
-    val context = LocalContext.current
-
     Column(modifier = modifier) {
-        Text(text = title)
-
         Row(
             modifier = modifier,
             horizontalArrangement = Arrangement.spacedBy(5.dp)
         ) {
-            OutlinedTextField(
+            MeasurementField(
                 modifier = Modifier
                     .requiredWidth(120.dp),
                 value = left,
                 onValueChange = onLeftChange,
-                singleLine = true,
-                placeholder = { Text(text = context.getString(R.string.left)) }
+                placeholderResId = R.string.left,
+                label = title
             )
 
-            OutlinedTextField(
+            MeasurementField(
                 modifier = Modifier
                     .requiredWidth(120.dp),
                 value = right,
                 onValueChange = onRightChange,
-                singleLine = true,
-                placeholder = { Text(text = context.getString(R.string.right)) }
+                placeholderResId = R.string.right,
+                label = title
             )
         }
     }
+}
+
+@Composable
+fun MeasurementField(
+    modifier: Modifier = Modifier,
+    label: String? = null,
+    placeholderResId: Int? = null,
+    value: String,
+    onValueChange: (String) -> Unit
+) {
+    val context = LocalContext.current
+    val placeholderText = placeholderResId?.let { context.getString(it) }
+
+    OutlinedTextField(
+        modifier = modifier,
+        value = value,
+        onValueChange = onValueChange,
+        singleLine = true,
+        placeholder = {
+            if (placeholderText != null) {
+                Text(text = placeholderText)
+            }
+        },
+        label = {
+            if (label != null) {
+                Text(text = label)
+            }
+        }
+    )
 }
 
 @Preview(showBackground = true, showSystemUi = true)

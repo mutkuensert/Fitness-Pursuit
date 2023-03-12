@@ -24,4 +24,7 @@
     <string name="thigh">Bacak</string>
     <string name="save">Kaydet</string>
     <string name="waist">Bel</string>
+    <string name="warmup_sets">Isınma Setleri</string>
+    <string name="one_rm">1 RM</string>
+    <string name="body_sizes">Vücut Ölçüleri</string>
 </resources>

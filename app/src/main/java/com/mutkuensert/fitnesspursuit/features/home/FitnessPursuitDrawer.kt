@@ -20,12 +20,15 @@ import androidx.navigation.compose.rememberNavController
 import com.mutkuensert.fitnesspursuit.R
 import com.mutkuensert.fitnesspursuit.components.ShadowedButton
 import com.mutkuensert.fitnesspursuit.components.ShadowedCard
-import com.mutkuensert.fitnesspursuit.navigation.ONERMSCREEN
-import com.mutkuensert.fitnesspursuit.navigation.WARMUPSETSSCREEN
+import com.mutkuensert.fitnesspursuit.navigation.BODY_SIZES
+import com.mutkuensert.fitnesspursuit.navigation.ONE_RM
+import com.mutkuensert.fitnesspursuit.navigation.WARMUP_SETS
 
 @Composable
 fun FitnessPursuitDrawer(onCloseDrawer: () -> Unit, navController: NavHostController) {
     val context = LocalContext.current
+    val getString: (id: Int) -> String = { context.getString(it) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -42,19 +45,28 @@ fun FitnessPursuitDrawer(onCloseDrawer: () -> Unit, navController: NavHostContro
         Spacer(Modifier.height(65.dp))
 
         ShadowedButton(onClick = {
-            navController.navigate(WARMUPSETSSCREEN)
+            navController.navigate(WARMUP_SETS)
             onCloseDrawer()
         }) {
-            Text(text = "Warmup Sets")
+            Text(text = getString(R.string.warmup_sets))
         }
 
         Spacer(Modifier.height(25.dp))
 
         ShadowedButton(onClick = {
-            navController.navigate(ONERMSCREEN)
+            navController.navigate(ONE_RM)
             onCloseDrawer()
         }) {
-            Text(text = "One RM")
+            Text(text = getString(R.string.one_rm))
+        }
+
+        Spacer(Modifier.height(25.dp))
+
+        ShadowedButton(onClick = {
+            navController.navigate(BODY_SIZES)
+            onCloseDrawer()
+        }) {
+            Text(text = getString(R.string.body_sizes))
         }
     }
 }
