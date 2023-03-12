@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.util
+package com.mutkuensert.fitnesspursuit.navigation
 
 const val WARMUPSETSSCREEN: String = "warmupsetsscreen"
 const val ONERMSCREEN: String = "onermscreen"

@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.ui.warmupsets
+package com.mutkuensert.fitnesspursuit.features.warmupsets
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

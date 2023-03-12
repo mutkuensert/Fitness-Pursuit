@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.ui.warmupsets
+package com.mutkuensert.fitnesspursuit.features.warmupsets
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mutkuensert.fitnesspursuit.R
-import com.mutkuensert.fitnesspursuit.ui.components.ShadowedButton
-import com.mutkuensert.fitnesspursuit.ui.components.ShadowedCard
+import com.mutkuensert.fitnesspursuit.components.ShadowedButton
+import com.mutkuensert.fitnesspursuit.components.ShadowedCard
 import com.mutkuensert.fitnesspursuit.ui.theme.FitnessPursuitTheme
 
 @Composable

@@ -1,16 +1,13 @@
-package com.mutkuensert.fitnesspursuit.ui
+package com.mutkuensert.fitnesspursuit.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.mutkuensert.fitnesspursuit.ui.bodysizes.BodySizes
-import com.mutkuensert.fitnesspursuit.ui.onerm.OneRm
-import com.mutkuensert.fitnesspursuit.ui.warmupsets.WarmupSets
-import com.mutkuensert.fitnesspursuit.util.BODYSIZESSCREEN
-import com.mutkuensert.fitnesspursuit.util.ONERMSCREEN
-import com.mutkuensert.fitnesspursuit.util.WARMUPSETSSCREEN
+import com.mutkuensert.fitnesspursuit.features.bodysizes.BodySizes
+import com.mutkuensert.fitnesspursuit.features.onerm.OneRm
+import com.mutkuensert.fitnesspursuit.features.warmupsets.WarmupSets
 
 @Composable
 fun MyNavHost(

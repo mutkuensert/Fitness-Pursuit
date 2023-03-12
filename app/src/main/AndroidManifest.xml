@@ -14,9 +14,8 @@
         android:theme="@style/Theme.FitnessPursuit"
         tools:targetApi="31">
         <activity
-            android:name=".ui.home.MainActivity"
+            android:name=".features.home.MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.FitnessPursuit">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

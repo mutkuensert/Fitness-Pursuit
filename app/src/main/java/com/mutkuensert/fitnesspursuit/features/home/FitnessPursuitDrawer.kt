@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.ui.home
+package com.mutkuensert.fitnesspursuit.features.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,10 +18,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.mutkuensert.fitnesspursuit.R
-import com.mutkuensert.fitnesspursuit.ui.components.ShadowedButton
-import com.mutkuensert.fitnesspursuit.ui.components.ShadowedCard
-import com.mutkuensert.fitnesspursuit.util.ONERMSCREEN
-import com.mutkuensert.fitnesspursuit.util.WARMUPSETSSCREEN
+import com.mutkuensert.fitnesspursuit.components.ShadowedButton
+import com.mutkuensert.fitnesspursuit.components.ShadowedCard
+import com.mutkuensert.fitnesspursuit.navigation.ONERMSCREEN
+import com.mutkuensert.fitnesspursuit.navigation.WARMUPSETSSCREEN
 
 @Composable
 fun FitnessPursuitDrawer(onCloseDrawer: () -> Unit, navController: NavHostController) {

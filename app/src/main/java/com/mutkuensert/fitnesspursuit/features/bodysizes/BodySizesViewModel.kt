@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.ui.bodysizes
+package com.mutkuensert.fitnesspursuit.features.bodysizes
 
 import androidx.lifecycle.ViewModel
 import com.mutkuensert.fitnesspursuit.data.source.BodySizesDao

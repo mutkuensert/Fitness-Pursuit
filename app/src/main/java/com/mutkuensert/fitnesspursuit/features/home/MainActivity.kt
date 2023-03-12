@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.ui.home
+package com.mutkuensert.fitnesspursuit.features.home
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

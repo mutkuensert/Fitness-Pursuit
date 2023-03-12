@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.ui.home
+package com.mutkuensert.fitnesspursuit.features.home
 
 import android.content.Context
 import androidx.compose.foundation.layout.padding
@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.mutkuensert.fitnesspursuit.ui.MyNavHost
+import com.mutkuensert.fitnesspursuit.navigation.MyNavHost
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

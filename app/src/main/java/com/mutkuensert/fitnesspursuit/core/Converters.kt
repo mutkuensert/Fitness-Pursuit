@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.util
+package com.mutkuensert.fitnesspursuit.core
 
 import androidx.room.TypeConverter
 import java.util.Date

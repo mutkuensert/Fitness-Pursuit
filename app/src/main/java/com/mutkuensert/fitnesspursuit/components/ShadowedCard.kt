@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.ui.components
+package com.mutkuensert.fitnesspursuit.components
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column

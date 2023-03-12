@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.ui.components
+package com.mutkuensert.fitnesspursuit.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button

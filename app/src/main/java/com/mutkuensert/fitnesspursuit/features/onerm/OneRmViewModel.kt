@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.ui.onerm
+package com.mutkuensert.fitnesspursuit.features.onerm
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

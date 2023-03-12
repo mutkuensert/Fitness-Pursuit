@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.ui.bodysizes
+package com.mutkuensert.fitnesspursuit.features.bodysizes
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
