@@ -28,4 +28,5 @@
     <string name="one_rm">1 RM</string>
     <string name="body_sizes">Vücut Ölçüleri</string>
     <string name="set_custom_date_time">Özel tarih ve saat ayarlayın</string>
+    <string name="athlete_name">Atlet ismi</string>
 </resources>

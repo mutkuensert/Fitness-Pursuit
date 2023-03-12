@@ -29,4 +29,5 @@ object TextResKeys {
     const val ONE_RM = "one_rm"
     const val BODY_SIZES = "body_sizes"
     const val SET_CUSTOM_DATE_TIME = "set_custom_date_time"
+    const val ATHLETE_NAME = "athlete_name"
 }

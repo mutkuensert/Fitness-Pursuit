@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
@@ -37,10 +39,14 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 private const val VERTICAL_SPACE = 5
+private const val HORIZONTAL_SPACE = 10
+private const val MEASUREMENT_FIELD_WIDTH = 120
+private const val OVERALL_WIDTH = MEASUREMENT_FIELD_WIDTH * 2 + HORIZONTAL_SPACE
 
 @Composable
 fun BodySizes() {
     val context = LocalContext.current
+    val (name, onNameChange) = remember { mutableStateOf("") }
     val (leftBicep, onLeftBicepChange) = remember { mutableStateOf("") }
     val (rightBicep, onRightBicepChange) = remember { mutableStateOf("") }
     val (leftForearm, onLeftForearmChange) = remember { mutableStateOf("") }
@@ -59,7 +65,7 @@ fun BodySizes() {
     val timePicker =
         TimePickerDialog(
             context,
-            TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+            { _, hourOfDay, minute ->
                 dateTime = LocalDateTime.of(dateTime.toLocalDate(), LocalTime.of(hourOfDay, minute))
             },
             dateTime.hour,
@@ -69,7 +75,7 @@ fun BodySizes() {
 
     val datePicker = DatePickerDialog(
         context,
-        DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+        { _, year, month, dayOfMonth ->
             val time = dateTime.toLocalTime()
             dateTime = LocalDateTime.of(
                 LocalDate.of(year, month, dayOfMonth),
@@ -83,110 +89,123 @@ fun BodySizes() {
     )
 
     Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(VERTICAL_SPACE.dp),
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(VERTICAL_SPACE.dp))
-
-        LeftRightMeasurementField(
-            title = getStringRes(TextResKeys.BICEP),
-            left = leftBicep,
-            onLeftChange = onLeftBicepChange,
-            right = rightBicep,
-            onRightChange = onRightBicepChange
-        )
-
-        LeftRightMeasurementField(
-            title = getStringRes(TextResKeys.FOREARM),
-            left = leftForearm,
-            onLeftChange = onLeftForearmChange,
-            right = rightForearm,
-            onRightChange = onRightForearmChange
-        )
-
-        LeftRightMeasurementField(
-            title = getStringRes(TextResKeys.CALF),
-            left = leftCalf,
-            onLeftChange = onLeftCalfChange,
-            right = rightCalf,
-            onRightChange = onRightCalfChange
-        )
-
-        LeftRightMeasurementField(
-            title = getStringRes(TextResKeys.THIGH),
-            left = leftThigh,
-            onLeftChange = onLeftThighChange,
-            right = rightThigh,
-            onRightChange = onRightThighChange
-        )
-
         Column(
-            modifier = Modifier.width(240.dp),
-            verticalArrangement = Arrangement.spacedBy(VERTICAL_SPACE.dp)
+            modifier = Modifier
+                .width(OVERALL_WIDTH.dp)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(VERTICAL_SPACE.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            MeasurementField(
-                value = chest,
-                onValueChange = onChestChange,
-                label = getStringRes(TextResKeys.CHEST)
-            )
+            Spacer(modifier = Modifier.height(VERTICAL_SPACE.dp))
 
             MeasurementField(
-                value = hips,
-                onValueChange = onHipsChange,
-                label = getStringRes(TextResKeys.HIPS)
+                value = name,
+                onValueChange = onNameChange,
+                label = getStringRes(TextResKeys.ATHLETE_NAME)
             )
 
-            MeasurementField(
-                value = neck,
-                onValueChange = onNeckChange,
-                label = getStringRes(TextResKeys.SHOULDERS)
+            LeftRightMeasurementField(
+                title = getStringRes(TextResKeys.BICEP),
+                left = leftBicep,
+                onLeftChange = onLeftBicepChange,
+                right = rightBicep,
+                onRightChange = onRightBicepChange
             )
 
-            MeasurementField(
-                value = shoulders,
-                onValueChange = onShouldersChange,
-                label = getStringRes(TextResKeys.SHOULDERS)
+            LeftRightMeasurementField(
+                title = getStringRes(TextResKeys.FOREARM),
+                left = leftForearm,
+                onLeftChange = onLeftForearmChange,
+                right = rightForearm,
+                onRightChange = onRightForearmChange
             )
 
-            MeasurementField(
-                value = waist,
-                onValueChange = onWaistChange,
-                label = getStringRes(TextResKeys.WAIST)
+            LeftRightMeasurementField(
+                title = getStringRes(TextResKeys.CALF),
+                left = leftCalf,
+                onLeftChange = onLeftCalfChange,
+                right = rightCalf,
+                onRightChange = onRightCalfChange
             )
-        }
 
-        Spacer(modifier = Modifier.height(20.dp))
+            LeftRightMeasurementField(
+                title = getStringRes(TextResKeys.THIGH),
+                left = leftThigh,
+                onLeftChange = onLeftThighChange,
+                right = rightThigh,
+                onRightChange = onRightThighChange
+            )
 
-        Row(
-            modifier = Modifier.clickable { datePicker.show() },
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            with(dateTime) {
-                Text(
-                    text = "$dayOfMonth.$monthValue.$year $hour:$minute ",
-                    style = MaterialTheme.appTypography.h6,
-                    color = TextColors.viridianGreen
+            Column(
+                modifier = Modifier.width(OVERALL_WIDTH.dp),
+                verticalArrangement = Arrangement.spacedBy(VERTICAL_SPACE.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                MeasurementField(
+                    value = chest,
+                    onValueChange = onChestChange,
+                    label = getStringRes(TextResKeys.CHEST)
+                )
+
+                MeasurementField(
+                    value = hips,
+                    onValueChange = onHipsChange,
+                    label = getStringRes(TextResKeys.HIPS)
+                )
+
+                MeasurementField(
+                    value = neck,
+                    onValueChange = onNeckChange,
+                    label = getStringRes(TextResKeys.SHOULDERS)
+                )
+
+                MeasurementField(
+                    value = shoulders,
+                    onValueChange = onShouldersChange,
+                    label = getStringRes(TextResKeys.SHOULDERS)
+                )
+
+                MeasurementField(
+                    value = waist,
+                    onValueChange = onWaistChange,
+                    label = getStringRes(TextResKeys.WAIST)
                 )
             }
 
-            Icon(
-                modifier = Modifier.requiredHeight(20.dp),
-                painter = painterResource(R.drawable.open),
-                tint = TextColors.viridianGreen,
-                contentDescription = getStringRes(TextResKeys.SET_CUSTOM_DATE_TIME)
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Row(
+                modifier = Modifier.clickable { datePicker.show() },
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                with(dateTime) {
+                    Text(
+                        text = "$dayOfMonth.$monthValue.$year $hour:$minute ",
+                        style = MaterialTheme.appTypography.h6,
+                        color = TextColors.viridianGreen
+                    )
+                }
+
+                Icon(
+                    modifier = Modifier.requiredHeight(20.dp),
+                    painter = painterResource(R.drawable.open),
+                    tint = TextColors.viridianGreen,
+                    contentDescription = getStringRes(TextResKeys.SET_CUSTOM_DATE_TIME)
+                )
+            }
+
+            Text(
+                modifier = Modifier.clickable { },
+                text = getStringRes(TextResKeys.SAVE),
+                style = MaterialTheme.appTypography.h6,
+                color = TextColors.viridianGreen
             )
+
+            Spacer(modifier = Modifier.height(VERTICAL_SPACE.dp))
         }
-
-        Text(
-            modifier = Modifier.clickable { },
-            text = getStringRes(TextResKeys.SAVE),
-            style = MaterialTheme.appTypography.h6,
-            color = TextColors.viridianGreen
-        )
-
-        Spacer(modifier = Modifier.height(VERTICAL_SPACE.dp))
     }
 }
 
@@ -202,23 +221,23 @@ fun LeftRightMeasurementField(
     Column(modifier = modifier) {
         Row(
             modifier = modifier,
-            horizontalArrangement = Arrangement.spacedBy(5.dp)
+            horizontalArrangement = Arrangement.spacedBy(HORIZONTAL_SPACE.dp)
         ) {
             MeasurementField(
                 modifier = Modifier
-                    .requiredWidth(120.dp),
+                    .requiredWidth(MEASUREMENT_FIELD_WIDTH.dp),
                 value = left,
                 onValueChange = onLeftChange,
-                placeholderResId = R.string.left,
+                placeholderStringResKey = TextResKeys.LEFT,
                 label = title
             )
 
             MeasurementField(
                 modifier = Modifier
-                    .requiredWidth(120.dp),
+                    .requiredWidth(MEASUREMENT_FIELD_WIDTH.dp),
                 value = right,
                 onValueChange = onRightChange,
-                placeholderResId = R.string.right,
+                placeholderStringResKey = TextResKeys.RIGHT,
                 label = title
             )
         }
@@ -229,12 +248,11 @@ fun LeftRightMeasurementField(
 fun MeasurementField(
     modifier: Modifier = Modifier,
     label: String? = null,
-    placeholderResId: Int? = null,
+    placeholderStringResKey: String? = null,
     value: String,
     onValueChange: (String) -> Unit
 ) {
-    val context = LocalContext.current
-    val placeholderText = placeholderResId?.let { context.getString(it) }
+    val placeholderText = placeholderStringResKey?.let { getStringRes(it) }
 
     OutlinedTextField(
         modifier = modifier,
