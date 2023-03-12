@@ -1,6 +1,5 @@
 package com.mutkuensert.fitnesspursuit.ui
 
-import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -15,14 +14,17 @@ import com.mutkuensert.fitnesspursuit.util.WARMUPSETSSCREEN
 
 @Composable
 fun MyNavHost(
-    context: Context,
     modifier: Modifier = Modifier,
     navController: NavHostController,
     startDestination: String = WARMUPSETSSCREEN
 ) {
-    NavHost(modifier = modifier, navController = navController, startDestination = startDestination) {
-        composable(WARMUPSETSSCREEN) { WarmupSets(context) }
-        composable(ONERMSCREEN) { OneRm(context) }
+    NavHost(
+        modifier = modifier,
+        navController = navController,
+        startDestination = startDestination
+    ) {
+        composable(WARMUPSETSSCREEN) { WarmupSets() }
+        composable(ONERMSCREEN) { OneRm() }
         composable(BODYSIZESSCREEN) { BodySizes() }
     }
 }

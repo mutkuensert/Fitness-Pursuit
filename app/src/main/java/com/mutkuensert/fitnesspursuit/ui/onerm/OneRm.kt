@@ -1,6 +1,5 @@
 package com.mutkuensert.fitnesspursuit.ui.onerm
 
-import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,7 +27,7 @@ import com.mutkuensert.fitnesspursuit.ui.components.ShadowedButton
 import com.mutkuensert.fitnesspursuit.ui.components.ShadowedCard
 
 @Composable
-fun OneRm(context: Context, viewModel: OneRmViewModel = viewModel()) {
+fun OneRm(viewModel: OneRmViewModel = viewModel()) {
     val weightInput by viewModel.weightInput.collectAsStateWithLifecycle()
     val repsInput by viewModel.repsInput.collectAsStateWithLifecycle()
     val epleyRM by viewModel.epleyRM.collectAsStateWithLifecycle()
@@ -38,6 +37,7 @@ fun OneRm(context: Context, viewModel: OneRmViewModel = viewModel()) {
     val mayhewRM by viewModel.mayhewRM.collectAsStateWithLifecycle()
     val oconnerRM by viewModel.oconnerRM.collectAsStateWithLifecycle()
     val wathenRM by viewModel.wathenRM.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     Surface {
         Column(
@@ -138,5 +138,5 @@ fun OneRm(context: Context, viewModel: OneRmViewModel = viewModel()) {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewOneRmScreen() {
-    OneRm(LocalContext.current)
+    OneRm()
 }

@@ -1,6 +1,5 @@
 package com.mutkuensert.fitnesspursuit.ui.warmupsets
 
-import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,12 +29,13 @@ import com.mutkuensert.fitnesspursuit.ui.components.ShadowedCard
 import com.mutkuensert.fitnesspursuit.ui.theme.FitnessPursuitTheme
 
 @Composable
-fun WarmupSets(context: Context, viewModel: WarmupSetsViewModel = viewModel()) {
+fun WarmupSets(viewModel: WarmupSetsViewModel = viewModel()) {
     val weightInput by viewModel.weightInput.collectAsStateWithLifecycle()
     val set2 by viewModel.set2.collectAsStateWithLifecycle()
     val set3 by viewModel.set3.collectAsStateWithLifecycle()
     val set4 by viewModel.set4.collectAsStateWithLifecycle()
     val set5 by viewModel.set5.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     Surface {
         Column(
@@ -130,6 +130,6 @@ fun WarmupSets(context: Context, viewModel: WarmupSetsViewModel = viewModel()) {
 @Composable
 fun PreviewWarmupSetsScreen() {
     FitnessPursuitTheme {
-        WarmupSets(LocalContext.current)
+        WarmupSets()
     }
 }

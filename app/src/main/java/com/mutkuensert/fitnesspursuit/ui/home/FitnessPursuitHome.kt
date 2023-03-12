@@ -22,10 +22,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun FitnessPursuitHome(context: Context) {
+fun FitnessPursuitHome() {
     val scaffoldState = rememberScaffoldState()
     val navController = rememberNavController()
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = { MyTopAppBar(context = context, scope = scope, scaffoldState = scaffoldState) },
@@ -37,7 +39,6 @@ fun FitnessPursuitHome(context: Context) {
         }
     ) { padding ->
         MyNavHost(
-            context = context,
             modifier = Modifier.padding(padding),
             navController = navController
         )
@@ -62,5 +63,5 @@ fun MyTopAppBar(context: Context, scope: CoroutineScope, scaffoldState: Scaffold
 @Preview(showBackground = true)
 @Composable
 fun FitnessPursuitHomePreview() {
-    FitnessPursuitHome(context = LocalContext.current)
+    FitnessPursuitHome()
 }
