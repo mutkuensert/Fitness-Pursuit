@@ -21,6 +21,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mutkuensert.fitnesspursuit.R
+import com.mutkuensert.fitnesspursuit.core.getStringRes
+import com.mutkuensert.fitnesspursuit.resources.TextResKeys
 import com.mutkuensert.fitnesspursuit.ui.theme.TextColors
 import com.mutkuensert.fitnesspursuit.ui.theme.appTypography
 import java.time.LocalDateTime
@@ -29,7 +31,6 @@ private const val VERTICAL_SPACE = 5
 
 @Composable
 fun BodySizes() {
-    val context = LocalContext.current
     val (leftBicep, onLeftBicepChange) = remember { mutableStateOf("") }
     val (rightBicep, onRightBicepChange) = remember { mutableStateOf("") }
     val (leftForearm, onLeftForearmChange) = remember { mutableStateOf("") }
@@ -54,7 +55,7 @@ fun BodySizes() {
         Spacer(modifier = Modifier.height(VERTICAL_SPACE.dp))
 
         LeftRightMeasurementField(
-            title = context.getString(R.string.bicep),
+            title = getStringRes(TextResKeys.BICEP),
             left = leftBicep,
             onLeftChange = onLeftBicepChange,
             right = rightBicep,
@@ -62,7 +63,7 @@ fun BodySizes() {
         )
 
         LeftRightMeasurementField(
-            title = context.getString(R.string.forearm),
+            title = getStringRes(TextResKeys.FOREARM),
             left = leftForearm,
             onLeftChange = onLeftForearmChange,
             right = rightForearm,
@@ -70,7 +71,7 @@ fun BodySizes() {
         )
 
         LeftRightMeasurementField(
-            title = context.getString(R.string.calf),
+            title = getStringRes(TextResKeys.CALF),
             left = leftCalf,
             onLeftChange = onLeftCalfChange,
             right = rightCalf,
@@ -78,7 +79,7 @@ fun BodySizes() {
         )
 
         LeftRightMeasurementField(
-            title = context.getString(R.string.thigh),
+            title = getStringRes(TextResKeys.THIGH),
             left = leftThigh,
             onLeftChange = onLeftThighChange,
             right = rightThigh,
@@ -92,31 +93,31 @@ fun BodySizes() {
             MeasurementField(
                 value = chest,
                 onValueChange = onChestChange,
-                label = context.getString(R.string.chest)
+                label = getStringRes(TextResKeys.CHEST)
             )
 
             MeasurementField(
                 value = hips,
                 onValueChange = onHipsChange,
-                label = context.getString(R.string.hips)
+                label = getStringRes(TextResKeys.HIPS)
             )
 
             MeasurementField(
                 value = neck,
                 onValueChange = onNeckChange,
-                label = context.getString(R.string.neck)
+                label = getStringRes(TextResKeys.SHOULDERS)
             )
 
             MeasurementField(
                 value = shoulders,
                 onValueChange = onShouldersChange,
-                label = context.getString(R.string.shoulders)
+                label = getStringRes(TextResKeys.SHOULDERS)
             )
 
             MeasurementField(
                 value = waist,
                 onValueChange = onWaistChange,
-                label = context.getString(R.string.waist)
+                label = getStringRes(TextResKeys.WAIST)
             )
         }
 
@@ -132,7 +133,7 @@ fun BodySizes() {
 
         Text(
             modifier = Modifier.clickable { },
-            text = context.getString(R.string.save),
+            text = getStringRes(TextResKeys.SAVE),
             style = MaterialTheme.appTypography.h6,
             color = TextColors.viridianGreen
         )
