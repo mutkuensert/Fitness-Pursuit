@@ -30,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mutkuensert.fitnesspursuit.R
+import com.mutkuensert.fitnesspursuit.components.AutoCompleteTextField
 import com.mutkuensert.fitnesspursuit.core.getStringRes
 import com.mutkuensert.fitnesspursuit.resources.TextResKeys
 import com.mutkuensert.fitnesspursuit.ui.theme.TextColors
@@ -101,10 +102,12 @@ fun BodySizes() {
         ) {
             Spacer(modifier = Modifier.height(VERTICAL_SPACE.dp))
 
-            MeasurementField(
+            AutoCompleteTextField(
                 value = name,
                 onValueChange = onNameChange,
-                label = getStringRes(TextResKeys.ATHLETE_NAME)
+                label = getStringRes(TextResKeys.ATHLETE_NAME),
+                placeholderText = getStringRes(TextResKeys.ATHLETE_NAME),
+                searchResults = listOf("one")
             )
 
             LeftRightMeasurementField(

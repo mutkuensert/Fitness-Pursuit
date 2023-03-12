@@ -3,6 +3,7 @@ package com.mutkuensert.fitnesspursuit.data.source
 import androidx.room.Dao
 import androidx.room.Query
 import com.mutkuensert.fitnesspursuit.data.BodySizesModel
+import java.time.LocalDateTime
 import java.util.*
 
 @Dao
@@ -18,5 +19,5 @@ interface BodySizesDao {
     suspend fun loadAllBodySizesByName(athleteName: String): List<BodySizesModel>
 
     @Query("SELECT * FROM BodySizes WHERE athleteName LIKE :athleteName AND date = :targetDate")
-    suspend fun findBodySizesOfUserOnDate(athleteName: String, targetDate: Date): BodySizesModel
+    suspend fun findBodySizesOfUserOnDate(athleteName: String, targetDate: LocalDateTime): BodySizesModel
 }
