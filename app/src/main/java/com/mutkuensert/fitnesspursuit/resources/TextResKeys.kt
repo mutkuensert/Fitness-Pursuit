@@ -1,6 +1,6 @@
 package com.mutkuensert.fitnesspursuit.resources
 
-object TextResourceKeys {
+object TextResKeys {
     const val APP_NAME = "app_name"
     const val ASK_WEIGHT = "ask_weight"
     const val CALCULATE = "calculate"
