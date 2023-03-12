@@ -78,13 +78,13 @@ fun BodySizes() {
         { _, year, month, dayOfMonth ->
             val time = dateTime.toLocalTime()
             dateTime = LocalDateTime.of(
-                LocalDate.of(year, month, dayOfMonth),
+                LocalDate.of(year, month + 1, dayOfMonth),
                 LocalTime.of(time.hour, time.minute)
             )
             timePicker.show()
         },
         dateTime.year,
-        dateTime.monthValue,
+        dateTime.monthValue - 1,
         dateTime.dayOfMonth
     )
 
@@ -183,7 +183,7 @@ fun BodySizes() {
             ) {
                 with(dateTime) {
                     Text(
-                        text = "$dayOfMonth.$monthValue.$year $hour:$minute ",
+                        text = "${toLocalDate()} ${toLocalTime().hour}.${toLocalTime().minute} ",
                         style = MaterialTheme.appTypography.h6,
                         color = TextColors.viridianGreen
                     )
@@ -204,7 +204,7 @@ fun BodySizes() {
                 color = TextColors.viridianGreen
             )
 
-            Spacer(modifier = Modifier.height(VERTICAL_SPACE.dp))
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }

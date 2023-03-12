@@ -1,12 +1,16 @@
 package com.mutkuensert.fitnesspursuit.core
 
 import androidx.room.TypeConverter
-import java.util.Date
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.util.*
 
 class Converters {
     @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
-        return value?.let { Date(it) }
+    fun fromTimestamp(value: LocalDateTime?): Date? {
+        return value?.let {
+            Date(it.toInstant(ZoneOffset.of(ZoneOffset.systemDefault().id)).toEpochMilli())
+        }
     }
 
     @TypeConverter
