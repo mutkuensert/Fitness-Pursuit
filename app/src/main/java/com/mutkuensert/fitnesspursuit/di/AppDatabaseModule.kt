@@ -16,14 +16,17 @@ object AppDatabaseModule {
 
     @Singleton
     @Provides
-    fun provideAppDatabase(application: Application): FitnessPursuitDatabase{
-        return Room.databaseBuilder(application.applicationContext,
-            FitnessPursuitDatabase::class.java,"fitnesspursuitdatabase").build()
+    fun provideAppDatabase(application: Application): FitnessPursuitDatabase {
+        return Room.databaseBuilder(
+            application.applicationContext,
+            FitnessPursuitDatabase::class.java,
+            "fitnesspursuitdatabase"
+        ).build()
     }
 
     @Singleton
     @Provides
-    fun provideBodySizesDao(fitnessPursuitDatabase: FitnessPursuitDatabase): BodySizesDao{
+    fun provideBodySizesDao(fitnessPursuitDatabase: FitnessPursuitDatabase): BodySizesDao {
         return fitnessPursuitDatabase.bodySizesDao()
     }
 }

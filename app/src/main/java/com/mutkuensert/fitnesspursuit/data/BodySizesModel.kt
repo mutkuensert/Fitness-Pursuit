@@ -2,26 +2,24 @@ package com.mutkuensert.fitnesspursuit.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
+import java.time.LocalDateTime
 
 @Entity(tableName = "BodySizes")
 data class BodySizesModel(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val athleteName: String,
-    val date: Date,
-    val neck: Double?,
-    val shoulder: Double?,
-    val chest: Double?,
-    val leftArmRelaxed: Double?,
-    val rightArmRelaxed: Double?,
-    val leftArmFlexed: Double?,
-    val rightArmFlexed: Double?,
+    val date: LocalDateTime,
+    val leftBicep: Double?,
+    val rightBicep: Double?,
     val leftForearm: Double?,
     val rightForearm: Double?,
-    val waist: Double?,
-    val hip: Double?,
-    val leftLeg: Double?,
-    val rightLeg: Double?,
     val leftCalf: Double?,
-    val rightCalf: Double?
+    val rightCalf: Double?,
+    val leftThigh: Double?,
+    val rightThigh: Double?,
+    val chest: Double?,
+    val hips: Double?,
+    val neck: Double?,
+    val shoulders: Double?,
+    val waist: Double?
 )
