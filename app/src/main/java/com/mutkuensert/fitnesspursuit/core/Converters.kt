@@ -9,7 +9,7 @@ import java.time.ZoneOffset
 class Converters {
     @TypeConverter
     fun fromLocalDatetime(value: LocalDateTime?): Long? {
-        return value?.toInstant(ZoneOffset.of(ZoneOffset.systemDefault().id))?.toEpochMilli()
+        return value?.atZone(ZoneId.of(ZoneOffset.systemDefault().id))?.toInstant()?.toEpochMilli()
     }
 
     @TypeConverter
