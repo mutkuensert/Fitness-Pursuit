@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.features.bodysizes
+package com.mutkuensert.fitnesspursuit.features.bodysizes.detail
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -32,10 +32,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mutkuensert.fitnesspursuit.R
 import com.mutkuensert.fitnesspursuit.components.AutoCompleteTextField
 import com.mutkuensert.fitnesspursuit.core.convertToDouble
 import com.mutkuensert.fitnesspursuit.core.getStringRes
+import com.mutkuensert.fitnesspursuit.data.BodySizesModel
 import com.mutkuensert.fitnesspursuit.resources.TextResKeys
 import com.mutkuensert.fitnesspursuit.ui.theme.TextColors
 import com.mutkuensert.fitnesspursuit.ui.theme.appTypography
@@ -49,7 +51,21 @@ private const val MEASUREMENT_FIELD_WIDTH = 120
 private const val OVERALL_WIDTH = MEASUREMENT_FIELD_WIDTH * 2 + HORIZONTAL_SPACE
 
 @Composable
-fun BodySizes(viewModel: BodySizesViewModel = hiltViewModel()) {
+fun BodySizeDetailsScreen(
+    navigateToBodySizeList: () -> Unit,
+    viewModel: BodySizeDetailsViewModel = hiltViewModel()
+) {
+    val allList = viewModel.allList.collectAsStateWithLifecycle()
+
+    BodySizeDetails(navigateToBodySizeList, viewModel::saveData, allList.value)
+}
+
+@Composable
+fun BodySizeDetails(
+    navigateToBodySizeList: () -> Unit,
+    saveData: (BodySizesModel) -> Unit,
+    allList: List<BodySizesModel>
+) {
     val context = LocalContext.current
     val (name, onNameChange) = remember { mutableStateOf("") }
     val (leftBicep, onLeftBicepChange) = remember { mutableStateOf("") }
@@ -68,23 +84,33 @@ fun BodySizes(viewModel: BodySizesViewModel = hiltViewModel()) {
     var dateTime by remember { mutableStateOf(LocalDateTime.now()) }
 
     val timePicker = TimePickerDialog(
-        context, { _, hourOfDay, minute ->
+        context,
+        { _, hourOfDay, minute ->
             dateTime = LocalDateTime.of(dateTime.toLocalDate(), LocalTime.of(hourOfDay, minute))
-        }, dateTime.hour, dateTime.minute, true
+        },
+        dateTime.hour,
+        dateTime.minute,
+        true
     )
 
     val datePicker = DatePickerDialog(
-        context, { _, year, month, dayOfMonth ->
+        context,
+        { _, year, month, dayOfMonth ->
             val time = dateTime.toLocalTime()
             dateTime = LocalDateTime.of(
-                LocalDate.of(year, month + 1, dayOfMonth), LocalTime.of(time.hour, time.minute)
+                LocalDate.of(year, month + 1, dayOfMonth),
+                LocalTime.of(time.hour, time.minute)
             )
             timePicker.show()
-        }, dateTime.year, dateTime.monthValue - 1, dateTime.dayOfMonth
+        },
+        dateTime.year,
+        dateTime.monthValue - 1,
+        dateTime.dayOfMonth
     )
 
     Column(
-        modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
             modifier = Modifier
@@ -100,10 +126,10 @@ fun BodySizes(viewModel: BodySizesViewModel = hiltViewModel()) {
                 onValueChange = onNameChange,
                 label = getStringRes(TextResKeys.ATHLETE_NAME),
                 placeholderText = getStringRes(TextResKeys.ATHLETE_NAME),
-                searchResults = listOf("one")
+                data = allList.map { it.athleteName }
             )
 
-            LeftRightMeasurementField(
+            LeftRightMeasurementTextField(
                 title = getStringRes(TextResKeys.BICEP),
                 left = leftBicep,
                 onLeftChange = onLeftBicepChange,
@@ -111,7 +137,7 @@ fun BodySizes(viewModel: BodySizesViewModel = hiltViewModel()) {
                 onRightChange = onRightBicepChange
             )
 
-            LeftRightMeasurementField(
+            LeftRightMeasurementTextField(
                 title = getStringRes(TextResKeys.FOREARM),
                 left = leftForearm,
                 onLeftChange = onLeftForearmChange,
@@ -119,7 +145,7 @@ fun BodySizes(viewModel: BodySizesViewModel = hiltViewModel()) {
                 onRightChange = onRightForearmChange
             )
 
-            LeftRightMeasurementField(
+            LeftRightMeasurementTextField(
                 title = getStringRes(TextResKeys.CALF),
                 left = leftCalf,
                 onLeftChange = onLeftCalfChange,
@@ -127,7 +153,7 @@ fun BodySizes(viewModel: BodySizesViewModel = hiltViewModel()) {
                 onRightChange = onRightCalfChange
             )
 
-            LeftRightMeasurementField(
+            LeftRightMeasurementTextField(
                 title = getStringRes(TextResKeys.THIGH),
                 left = leftThigh,
                 onLeftChange = onLeftThighChange,
@@ -140,31 +166,31 @@ fun BodySizes(viewModel: BodySizesViewModel = hiltViewModel()) {
                 verticalArrangement = Arrangement.spacedBy(VERTICAL_SPACE.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                MeasurementField(
+                MeasurementTextField(
                     value = chest,
                     onValueChange = onChestChange,
                     label = getStringRes(TextResKeys.CHEST)
                 )
 
-                MeasurementField(
+                MeasurementTextField(
                     value = hips,
                     onValueChange = onHipsChange,
                     label = getStringRes(TextResKeys.HIPS)
                 )
 
-                MeasurementField(
+                MeasurementTextField(
                     value = neck,
                     onValueChange = onNeckChange,
                     label = getStringRes(TextResKeys.SHOULDERS)
                 )
 
-                MeasurementField(
+                MeasurementTextField(
                     value = shoulders,
                     onValueChange = onShouldersChange,
                     label = getStringRes(TextResKeys.SHOULDERS)
                 )
 
-                MeasurementField(
+                MeasurementTextField(
                     value = waist,
                     onValueChange = onWaistChange,
                     label = getStringRes(TextResKeys.WAIST)
@@ -195,23 +221,27 @@ fun BodySizes(viewModel: BodySizesViewModel = hiltViewModel()) {
 
             Text(
                 modifier = Modifier.clickable {
-                    viewModel.saveData(
-                        name,
-                        dateTime,
-                        leftBicep,
-                        rightBicep,
-                        leftForearm,
-                        rightForearm,
-                        leftCalf,
-                        rightCalf,
-                        leftThigh,
-                        rightThigh,
-                        chest,
-                        hips,
-                        neck,
-                        shoulders,
-                        waist
+                    saveData(
+                        BodySizesModel(
+                            name,
+                            dateTime,
+                            leftBicep.toDoubleOrNull(),
+                            rightBicep.toDoubleOrNull(),
+                            leftForearm.toDoubleOrNull(),
+                            rightForearm.toDoubleOrNull(),
+                            leftCalf.toDoubleOrNull(),
+                            rightCalf.toDoubleOrNull(),
+                            leftThigh.toDoubleOrNull(),
+                            rightThigh.toDoubleOrNull(),
+                            chest.toDoubleOrNull(),
+                            hips.toDoubleOrNull(),
+                            neck.toDoubleOrNull(),
+                            shoulders.toDoubleOrNull(),
+                            waist.toDoubleOrNull()
+                        )
                     )
+
+                    navigateToBodySizeList()
                 },
                 text = getStringRes(TextResKeys.SAVE),
                 style = MaterialTheme.appTypography.h6,
@@ -224,7 +254,7 @@ fun BodySizes(viewModel: BodySizesViewModel = hiltViewModel()) {
 }
 
 @Composable
-fun LeftRightMeasurementField(
+fun LeftRightMeasurementTextField(
     modifier: Modifier = Modifier,
     title: String,
     left: String,
@@ -234,9 +264,10 @@ fun LeftRightMeasurementField(
 ) {
     Column(modifier = modifier) {
         Row(
-            modifier = modifier, horizontalArrangement = Arrangement.spacedBy(HORIZONTAL_SPACE.dp)
+            modifier = modifier,
+            horizontalArrangement = Arrangement.spacedBy(HORIZONTAL_SPACE.dp)
         ) {
-            MeasurementField(
+            MeasurementTextField(
                 modifier = Modifier.requiredWidth(MEASUREMENT_FIELD_WIDTH.dp),
                 value = left,
                 onValueChange = onLeftChange,
@@ -244,7 +275,7 @@ fun LeftRightMeasurementField(
                 label = title
             )
 
-            MeasurementField(
+            MeasurementTextField(
                 modifier = Modifier.requiredWidth(MEASUREMENT_FIELD_WIDTH.dp),
                 value = right,
                 onValueChange = onRightChange,
@@ -256,12 +287,12 @@ fun LeftRightMeasurementField(
 }
 
 @Composable
-fun MeasurementField(
+fun MeasurementTextField(
     modifier: Modifier = Modifier,
     label: String? = null,
     placeholderStringResKey: String? = null,
     value: String,
-    onValueChange: (measurement: String) -> Unit //todo bak buraya
+    onValueChange: (String) -> Unit
 ) {
     val placeholderText = placeholderStringResKey?.let { getStringRes(it) }
 
@@ -287,5 +318,5 @@ fun MeasurementField(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewBodySizes() {
-    BodySizes()
+    BodySizeDetails({}, {}, listOf())
 }

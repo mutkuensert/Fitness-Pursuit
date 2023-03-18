@@ -23,5 +23,5 @@ interface BodySizesDao {
     suspend fun findBodySizesOfUserOnDate(athleteName: String, targetDate: LocalDateTime): BodySizesModel
 
     @Insert
-    suspend fun saveBodySize(bodySize:BodySizesModel)
+    suspend fun saveBodySize(bodySize: BodySizesModel)
 }

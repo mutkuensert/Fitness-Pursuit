@@ -28,4 +28,5 @@
     <string name="body_sizes">Body Sizes</string>
     <string name="set_custom_date_time">Set custom date time</string>
     <string name="athlete_name">Athlete name</string>
+    <string name="add_new">Add new</string>
 </resources>
