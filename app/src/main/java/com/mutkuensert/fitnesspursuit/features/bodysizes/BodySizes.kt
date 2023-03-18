@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -27,10 +28,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.mutkuensert.fitnesspursuit.R
 import com.mutkuensert.fitnesspursuit.components.AutoCompleteTextField
+import com.mutkuensert.fitnesspursuit.core.convertToDouble
 import com.mutkuensert.fitnesspursuit.core.getStringRes
 import com.mutkuensert.fitnesspursuit.resources.TextResKeys
 import com.mutkuensert.fitnesspursuit.ui.theme.TextColors
@@ -45,7 +49,7 @@ private const val MEASUREMENT_FIELD_WIDTH = 120
 private const val OVERALL_WIDTH = MEASUREMENT_FIELD_WIDTH * 2 + HORIZONTAL_SPACE
 
 @Composable
-fun BodySizes() {
+fun BodySizes(viewModel: BodySizesViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val (name, onNameChange) = remember { mutableStateOf("") }
     val (leftBicep, onLeftBicepChange) = remember { mutableStateOf("") }
@@ -63,35 +67,24 @@ fun BodySizes() {
     val (waist, onWaistChange) = remember { mutableStateOf("") }
     var dateTime by remember { mutableStateOf(LocalDateTime.now()) }
 
-    val timePicker =
-        TimePickerDialog(
-            context,
-            { _, hourOfDay, minute ->
-                dateTime = LocalDateTime.of(dateTime.toLocalDate(), LocalTime.of(hourOfDay, minute))
-            },
-            dateTime.hour,
-            dateTime.minute,
-            true
-        )
+    val timePicker = TimePickerDialog(
+        context, { _, hourOfDay, minute ->
+            dateTime = LocalDateTime.of(dateTime.toLocalDate(), LocalTime.of(hourOfDay, minute))
+        }, dateTime.hour, dateTime.minute, true
+    )
 
     val datePicker = DatePickerDialog(
-        context,
-        { _, year, month, dayOfMonth ->
+        context, { _, year, month, dayOfMonth ->
             val time = dateTime.toLocalTime()
             dateTime = LocalDateTime.of(
-                LocalDate.of(year, month + 1, dayOfMonth),
-                LocalTime.of(time.hour, time.minute)
+                LocalDate.of(year, month + 1, dayOfMonth), LocalTime.of(time.hour, time.minute)
             )
             timePicker.show()
-        },
-        dateTime.year,
-        dateTime.monthValue - 1,
-        dateTime.dayOfMonth
+        }, dateTime.year, dateTime.monthValue - 1, dateTime.dayOfMonth
     )
 
     Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
             modifier = Modifier
@@ -201,7 +194,25 @@ fun BodySizes() {
             }
 
             Text(
-                modifier = Modifier.clickable { },
+                modifier = Modifier.clickable {
+                    viewModel.saveData(
+                        name,
+                        dateTime,
+                        leftBicep,
+                        rightBicep,
+                        leftForearm,
+                        rightForearm,
+                        leftCalf,
+                        rightCalf,
+                        leftThigh,
+                        rightThigh,
+                        chest,
+                        hips,
+                        neck,
+                        shoulders,
+                        waist
+                    )
+                },
                 text = getStringRes(TextResKeys.SAVE),
                 style = MaterialTheme.appTypography.h6,
                 color = TextColors.viridianGreen
@@ -223,12 +234,10 @@ fun LeftRightMeasurementField(
 ) {
     Column(modifier = modifier) {
         Row(
-            modifier = modifier,
-            horizontalArrangement = Arrangement.spacedBy(HORIZONTAL_SPACE.dp)
+            modifier = modifier, horizontalArrangement = Arrangement.spacedBy(HORIZONTAL_SPACE.dp)
         ) {
             MeasurementField(
-                modifier = Modifier
-                    .requiredWidth(MEASUREMENT_FIELD_WIDTH.dp),
+                modifier = Modifier.requiredWidth(MEASUREMENT_FIELD_WIDTH.dp),
                 value = left,
                 onValueChange = onLeftChange,
                 placeholderStringResKey = TextResKeys.LEFT,
@@ -236,8 +245,7 @@ fun LeftRightMeasurementField(
             )
 
             MeasurementField(
-                modifier = Modifier
-                    .requiredWidth(MEASUREMENT_FIELD_WIDTH.dp),
+                modifier = Modifier.requiredWidth(MEASUREMENT_FIELD_WIDTH.dp),
                 value = right,
                 onValueChange = onRightChange,
                 placeholderStringResKey = TextResKeys.RIGHT,
@@ -253,14 +261,14 @@ fun MeasurementField(
     label: String? = null,
     placeholderStringResKey: String? = null,
     value: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (measurement: String) -> Unit //todo bak buraya
 ) {
     val placeholderText = placeholderStringResKey?.let { getStringRes(it) }
 
     OutlinedTextField(
         modifier = modifier,
         value = value,
-        onValueChange = onValueChange,
+        onValueChange = { onValueChange(it.convertToDouble().toString()) },
         singleLine = true,
         placeholder = {
             if (placeholderText != null) {
@@ -271,7 +279,8 @@ fun MeasurementField(
             if (label != null) {
                 Text(text = label)
             }
-        }
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal)
     )
 }
 

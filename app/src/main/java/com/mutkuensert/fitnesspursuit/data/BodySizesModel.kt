@@ -6,7 +6,6 @@ import java.time.LocalDateTime
 
 @Entity(tableName = "BodySizes")
 data class BodySizesModel(
-    @PrimaryKey(autoGenerate = true) val id: Int,
     val athleteName: String,
     val date: LocalDateTime,
     val leftBicep: Double?,
@@ -22,4 +21,7 @@ data class BodySizesModel(
     val neck: Double?,
     val shoulders: Double?,
     val waist: Double?
-)
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
+}
