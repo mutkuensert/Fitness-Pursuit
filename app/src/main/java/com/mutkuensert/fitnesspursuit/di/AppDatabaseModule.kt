@@ -2,7 +2,7 @@ package com.mutkuensert.fitnesspursuit.di
 
 import android.app.Application
 import androidx.room.Room
-import com.mutkuensert.fitnesspursuit.data.source.BodySizesDao
+import com.mutkuensert.fitnesspursuit.data.source.BodyMeasurementsDao
 import com.mutkuensert.fitnesspursuit.data.source.FitnessPursuitDatabase
 import dagger.Module
 import dagger.Provides
@@ -26,7 +26,7 @@ object AppDatabaseModule {
 
     @Singleton
     @Provides
-    fun provideBodySizesDao(fitnessPursuitDatabase: FitnessPursuitDatabase): BodySizesDao {
+    fun provideBodySizesDao(fitnessPursuitDatabase: FitnessPursuitDatabase): BodyMeasurementsDao {
         return fitnessPursuitDatabase.bodySizesDao()
     }
 }

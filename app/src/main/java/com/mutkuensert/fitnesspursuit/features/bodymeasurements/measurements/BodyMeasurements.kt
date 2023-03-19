@@ -1,5 +1,6 @@
-package com.mutkuensert.fitnesspursuit.features.bodysizes.bodysizelist
+package com.mutkuensert.fitnesspursuit.features.bodymeasurements.measurements
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,14 +20,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mutkuensert.fitnesspursuit.R
 import com.mutkuensert.fitnesspursuit.components.AutoCompleteTextField
+import com.mutkuensert.fitnesspursuit.components.ShadowedCard
 import com.mutkuensert.fitnesspursuit.core.getStringRes
-import com.mutkuensert.fitnesspursuit.data.BodySizesModel
+import com.mutkuensert.fitnesspursuit.data.BodyMeasurementDetailsDto
 import com.mutkuensert.fitnesspursuit.resources.TextResKeys
 import java.time.LocalDateTime
 
@@ -35,30 +38,32 @@ private const val VERTICAL_SPACE = 20
 private const val OVERALL_WIDTH = 280
 
 @Composable
-fun BodySizeListScreen(
-    navigateToBodySizeDetails: () -> Unit,
-    viewModel: BodySizeListViewModel = hiltViewModel()
+fun BodyMeasurementsScreen(
+    navigateToBodyMeasurementDetails: (id: Int?) -> Unit,
+    viewModel: BodyMeasurementsViewModel = hiltViewModel()
 ) {
     val bodySizeList = viewModel.bodySizeList.collectAsStateWithLifecycle()
-    val allList = viewModel.allList.collectAsStateWithLifecycle()
+    val athleteNames = viewModel.athleteNames.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        BodySizeList(
-            navigateToBodySizeDetails,
+        BodyMeasurements(
+            navigateToBodyMeasurementDetails,
             bodySizeList.value,
-            allList.value
+            athleteNames.value,
+            viewModel::onNameSearch
         )
     }
 }
 
 @Composable
-fun BodySizeList(
-    navigateToBodySizeDetails: () -> Unit,
-    bodySizeList: List<BodySizesModel>,
-    allList: List<BodySizesModel>
+fun BodyMeasurements(
+    navigateToBodyMeasurementDetails: (id: Int?) -> Unit,
+    bodySizeList: List<BodyMeasurementDetailsDto>,
+    athleteNames: List<String>,
+    onNameSearch: (String) -> Unit
 ) {
     Column(
         modifier = Modifier.requiredWidth(OVERALL_WIDTH.dp),
@@ -67,7 +72,7 @@ fun BodySizeList(
     ) {
         Spacer(modifier = Modifier.height(100.dp))
 
-        IconButton(onClick = navigateToBodySizeDetails) {
+        IconButton(onClick = { navigateToBodyMeasurementDetails(null) }) {
             Icon(
                 modifier = Modifier.alpha(0.5f),
                 painter = painterResource(R.drawable.add),
@@ -79,16 +84,21 @@ fun BodySizeList(
 
         AutoCompleteTextField(
             value = name,
-            onValueChange = onNameChange,
-            data = allList.map { it.athleteName }
+            onValueChange = {
+                onNameChange(it)
+                onNameSearch(it)
+            },
+            data = athleteNames
         )
 
-        LazyColumn() {
+        LazyColumn {
             items(bodySizeList) {
                 SearchResultItem(
-                    athleteName = it.athleteName,
-                    date = it.date
+                    bodySizes = it,
+                    navigateToBodyMeasurementDetails = navigateToBodyMeasurementDetails
                 )
+
+                Spacer(Modifier.height(10.dp))
             }
         }
 
@@ -98,35 +108,33 @@ fun BodySizeList(
 
 @Composable
 fun SearchResultItem(
-    athleteName: String,
-    date: LocalDateTime,
-    leftBicep: Double? = null,
-    rightBicep: Double? = null,
-    leftForearm: Double? = null,
-    rightForearm: Double? = null,
-    leftCalf: Double? = null,
-    rightCalf: Double? = null,
-    leftThigh: Double? = null,
-    rightThigh: Double? = null,
-    chest: Double? = null,
-    hips: Double? = null,
-    neck: Double? = null,
-    shoulders: Double? = null,
-    waist: Double? = null
+    bodySizes: BodyMeasurementDetailsDto,
+    navigateToBodyMeasurementDetails: (id: Int?) -> Unit
 ) {
-    Row(horizontalArrangement = Arrangement.spacedBy(HORIZONTAL_SPACE.dp)) {
-        Text(text = athleteName)
+    ShadowedCard {
+        Row(
+            modifier = Modifier.clickable { navigateToBodyMeasurementDetails(bodySizes.id) },
+            horizontalArrangement = Arrangement.spacedBy(HORIZONTAL_SPACE.dp)
+        ) {
+            Text(
+                text = bodySizes.athleteName,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.weight(1f)
+            )
 
-        Text(text = date.toString())
+            with(bodySizes.date) { Text(text = "$dayOfMonth.$monthValue.$year") }
+        }
     }
 }
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun PreviewBodySizeList() {
-    val fakeData = BodySizesModel(
+    val fakeData = BodyMeasurementDetailsDto(
         athleteName = "Athlete name",
         date = LocalDateTime.now(),
+        weight = 80.0,
         leftBicep = 40.0,
         rightBicep = 40.0,
         leftForearm = 30.0,
@@ -141,10 +149,10 @@ fun PreviewBodySizeList() {
         shoulders = 130.0,
         waist = 80.0
     )
-    val list = mutableListOf<BodySizesModel>()
+    val list = mutableListOf<BodyMeasurementDetailsDto>()
     repeat(50) {
         list.add(fakeData)
     }
 
-    BodySizeList(navigateToBodySizeDetails = { }, list, list)
+    BodyMeasurements(navigateToBodyMeasurementDetails = { }, list, list.map { it.athleteName }, {})
 }

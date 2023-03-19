@@ -1,4 +1,4 @@
-package com.mutkuensert.fitnesspursuit.features.bodysizes.detail
+package com.mutkuensert.fitnesspursuit.features.bodymeasurements.detail
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -20,6 +20,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,7 +38,7 @@ import com.mutkuensert.fitnesspursuit.R
 import com.mutkuensert.fitnesspursuit.components.AutoCompleteTextField
 import com.mutkuensert.fitnesspursuit.core.convertToDouble
 import com.mutkuensert.fitnesspursuit.core.getStringRes
-import com.mutkuensert.fitnesspursuit.data.BodySizesModel
+import com.mutkuensert.fitnesspursuit.data.BodyMeasurementDetailsDto
 import com.mutkuensert.fitnesspursuit.resources.TextResKeys
 import com.mutkuensert.fitnesspursuit.ui.theme.TextColors
 import com.mutkuensert.fitnesspursuit.ui.theme.appTypography
@@ -51,23 +52,31 @@ private const val MEASUREMENT_FIELD_WIDTH = 120
 private const val OVERALL_WIDTH = MEASUREMENT_FIELD_WIDTH * 2 + HORIZONTAL_SPACE
 
 @Composable
-fun BodySizeDetailsScreen(
+fun BodyMeasurementDetailsScreen(
     navigateToBodySizeList: () -> Unit,
-    viewModel: BodySizeDetailsViewModel = hiltViewModel()
+    viewModel: BodyMeasurementDetailsViewModel = hiltViewModel()
 ) {
-    val allList = viewModel.allList.collectAsStateWithLifecycle()
+    val athleteNames = viewModel.athleteNames.collectAsStateWithLifecycle()
+    val bodyMeasurementDetails = viewModel.bodyMeasurementDetails.collectAsStateWithLifecycle()
 
-    BodySizeDetails(navigateToBodySizeList, viewModel::saveData, allList.value)
+    BodyMeasurementDetails(
+        navigateToBodySizeList,
+        viewModel::saveData,
+        athleteNames.value,
+        bodyMeasurementDetails.value
+    )
 }
 
 @Composable
-fun BodySizeDetails(
+fun BodyMeasurementDetails(
     navigateToBodySizeList: () -> Unit,
-    saveData: (BodySizesModel) -> Unit,
-    allList: List<BodySizesModel>
+    saveData: (BodyMeasurementDetailsDto) -> Unit,
+    athleteNames: List<String>,
+    bodyMeasurementDetails: BodyMeasurementDetailsDto?
 ) {
     val context = LocalContext.current
     val (name, onNameChange) = remember { mutableStateOf("") }
+    val (weight, onWeightChange) = remember { mutableStateOf("") }
     val (leftBicep, onLeftBicepChange) = remember { mutableStateOf("") }
     val (rightBicep, onRightBicepChange) = remember { mutableStateOf("") }
     val (leftForearm, onLeftForearmChange) = remember { mutableStateOf("") }
@@ -82,6 +91,27 @@ fun BodySizeDetails(
     val (shoulders, onShouldersChange) = remember { mutableStateOf("") }
     val (waist, onWaistChange) = remember { mutableStateOf("") }
     var dateTime by remember { mutableStateOf(LocalDateTime.now()) }
+
+    LaunchedEffect(bodyMeasurementDetails) {
+        bodyMeasurementDetails?.let {
+            onNameChange(it.athleteName)
+            onWeightChange(it.weight?.toString() ?: "")
+            onLeftBicepChange(it.leftBicep?.toString() ?: "")
+            onRightBicepChange(it.rightBicep?.toString() ?: "")
+            onLeftForearmChange(it.leftForearm?.toString() ?: "")
+            onRightForearmChange(it.rightForearm?.toString() ?: "")
+            onLeftCalfChange(it.leftCalf?.toString() ?: "")
+            onRightCalfChange(it.rightCalf?.toString() ?: "")
+            onLeftThighChange(it.leftThigh?.toString() ?: "")
+            onRightThighChange(it.rightThigh?.toString() ?: "")
+            onChestChange(it.chest?.toString() ?: "")
+            onHipsChange(it.hips?.toString() ?: "")
+            onNeckChange(it.neck?.toString() ?: "")
+            onShouldersChange(it.shoulders?.toString() ?: "")
+            onWaistChange(it.waist?.toString() ?: "")
+            dateTime = it.date
+        }
+    }
 
     val timePicker = TimePickerDialog(
         context,
@@ -126,7 +156,13 @@ fun BodySizeDetails(
                 onValueChange = onNameChange,
                 label = getStringRes(TextResKeys.ATHLETE_NAME),
                 placeholderText = getStringRes(TextResKeys.ATHLETE_NAME),
-                data = allList.map { it.athleteName }
+                data = athleteNames
+            )
+
+            MeasurementTextField(
+                value = weight,
+                onValueChange = onWeightChange,
+                label = getStringRes(TextResKeys.WEIGHT)
             )
 
             LeftRightMeasurementTextField(
@@ -161,41 +197,35 @@ fun BodySizeDetails(
                 onRightChange = onRightThighChange
             )
 
-            Column(
-                modifier = Modifier.width(OVERALL_WIDTH.dp),
-                verticalArrangement = Arrangement.spacedBy(VERTICAL_SPACE.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                MeasurementTextField(
-                    value = chest,
-                    onValueChange = onChestChange,
-                    label = getStringRes(TextResKeys.CHEST)
-                )
+            MeasurementTextField(
+                value = chest,
+                onValueChange = onChestChange,
+                label = getStringRes(TextResKeys.CHEST)
+            )
 
-                MeasurementTextField(
-                    value = hips,
-                    onValueChange = onHipsChange,
-                    label = getStringRes(TextResKeys.HIPS)
-                )
+            MeasurementTextField(
+                value = hips,
+                onValueChange = onHipsChange,
+                label = getStringRes(TextResKeys.HIPS)
+            )
 
-                MeasurementTextField(
-                    value = neck,
-                    onValueChange = onNeckChange,
-                    label = getStringRes(TextResKeys.SHOULDERS)
-                )
+            MeasurementTextField(
+                value = neck,
+                onValueChange = onNeckChange,
+                label = getStringRes(TextResKeys.SHOULDERS)
+            )
 
-                MeasurementTextField(
-                    value = shoulders,
-                    onValueChange = onShouldersChange,
-                    label = getStringRes(TextResKeys.SHOULDERS)
-                )
+            MeasurementTextField(
+                value = shoulders,
+                onValueChange = onShouldersChange,
+                label = getStringRes(TextResKeys.SHOULDERS)
+            )
 
-                MeasurementTextField(
-                    value = waist,
-                    onValueChange = onWaistChange,
-                    label = getStringRes(TextResKeys.WAIST)
-                )
-            }
+            MeasurementTextField(
+                value = waist,
+                onValueChange = onWaistChange,
+                label = getStringRes(TextResKeys.WAIST)
+            )
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -222,9 +252,10 @@ fun BodySizeDetails(
             Text(
                 modifier = Modifier.clickable {
                     saveData(
-                        BodySizesModel(
+                        BodyMeasurementDetailsDto(
                             name,
                             dateTime,
+                            weight.toDoubleOrNull(),
                             leftBicep.toDoubleOrNull(),
                             rightBicep.toDoubleOrNull(),
                             leftForearm.toDoubleOrNull(),
@@ -318,5 +349,5 @@ fun MeasurementTextField(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun PreviewBodySizes() {
-    BodySizeDetails({}, {}, listOf())
+    BodyMeasurementDetails({}, {}, listOf(), null)
 }

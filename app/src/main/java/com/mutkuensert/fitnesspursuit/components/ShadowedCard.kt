@@ -9,16 +9,27 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ShadowedCard(content: @Composable () -> Unit) {
+fun ShadowedCard(
+    modifier: Modifier = Modifier,
+    elevation: Dp = 5.dp,
+    animateContentSize: Boolean = false,
+    backgroundColor: Color = MaterialTheme.colors.surface,
+    content: @Composable () -> Unit
+) {
     Card(
-        modifier = Modifier
-            .wrapContentSize()
-            .shadow(elevation = 5.dp)
-            .animateContentSize(),
-        backgroundColor = MaterialTheme.colors.surface
+        modifier = modifier
+            .then(
+                modifier
+                    .wrapContentSize()
+                    .shadow(elevation = elevation)
+            )
+            .run { if (animateContentSize) animateContentSize() else this },
+        backgroundColor = backgroundColor
     ) {
         Column(modifier = Modifier.padding(5.dp)) {
             content()

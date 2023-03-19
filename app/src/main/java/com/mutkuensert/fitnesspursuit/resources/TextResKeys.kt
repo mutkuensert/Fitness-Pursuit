@@ -30,5 +30,6 @@ object TextResKeys {
     const val WAIST = "waist"
     const val WARMUP_SETS = "warmup_sets"
     const val WARMUP_SET_1_DESCRIPTION = "warmup_set_1_description"
+    const val WEIGHT = "weight"
     const val WEIGHT_YOU_CAN_LIFT = "weight_you_can_lift"
 }

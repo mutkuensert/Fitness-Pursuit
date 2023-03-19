@@ -29,6 +29,7 @@ fun AutoCompleteTextField(
     onValueChange: (String) -> Unit,
     label: String? = null,
     placeholderText: String? = null,
+    trailingIcon: @Composable (() -> Unit)? = null,
     data: List<String>
 ) {
     var searchResults by remember { mutableStateOf(listOf<String>()) }
@@ -69,7 +70,8 @@ fun AutoCompleteTextField(
                     Text(text = label)
                 }
             },
-            singleLine = true
+            singleLine = true,
+            trailingIcon = trailingIcon
         )
 
         AnimatedVisibility(searchResultsVisibility) {

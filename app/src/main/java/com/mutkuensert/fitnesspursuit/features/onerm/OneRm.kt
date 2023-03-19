@@ -107,31 +107,47 @@ fun OneRm(viewModel: OneRmViewModel = hiltViewModel()) {
 
                 Spacer(Modifier.height(20.dp))
 
-                ShadowedCard { Text(text = "Epley: $epleyRM") }
+                ShadowedCard(animateContentSize = true) { Text(text = "Epley: $epleyRM") }
 
                 Spacer(Modifier.height(15.dp))
 
-                ShadowedCard { Text(text = "Brzycki: $brzyckiRM") }
+                ShadowedCard(animateContentSize = true) { Text(text = "Brzycki: $brzyckiRM") }
 
                 Spacer(Modifier.height(15.dp))
 
-                ShadowedCard { Text(text = "McGlothin: $mcglothinRM") }
+                ShadowedCard(animateContentSize = true) { Text(text = "McGlothin: $mcglothinRM") }
 
                 Spacer(Modifier.height(15.dp))
 
-                ShadowedCard { Text(text = "Lombardi: $lombardiRM") }
+                ShadowedCard(animateContentSize = true) { Text(text = "Lombardi: $lombardiRM") }
 
                 Spacer(Modifier.height(15.dp))
 
-                ShadowedCard { Text(text = "Mayhew ${getStringRes(TextResKeys.ET_AL)}.: $mayhewRM") }
+                ShadowedCard(animateContentSize = true) {
+                    Text(
+                        text = "Mayhew ${
+                        getStringRes(
+                            TextResKeys.ET_AL
+                        )
+                        }.: $mayhewRM"
+                    )
+                }
 
                 Spacer(Modifier.height(15.dp))
 
-                ShadowedCard { Text(text = "O'Conner ${getStringRes(TextResKeys.ET_AL)}. $oconnerRM") }
+                ShadowedCard(animateContentSize = true) {
+                    Text(
+                        text = "O'Conner ${
+                        getStringRes(
+                            TextResKeys.ET_AL
+                        )
+                        }. $oconnerRM"
+                    )
+                }
 
                 Spacer(Modifier.height(15.dp))
 
-                ShadowedCard { Text(text = "Wathen: $wathenRM") }
+                ShadowedCard(animateContentSize = true) { Text(text = "Wathen: $wathenRM") }
             }
         }
     }
