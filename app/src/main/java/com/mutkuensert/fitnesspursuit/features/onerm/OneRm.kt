@@ -14,21 +14,24 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.mutkuensert.fitnesspursuit.R
 import com.mutkuensert.fitnesspursuit.components.ShadowedButton
 import com.mutkuensert.fitnesspursuit.components.ShadowedCard
+import com.mutkuensert.fitnesspursuit.core.convertToDouble
+import com.mutkuensert.fitnesspursuit.core.getStringRes
+import com.mutkuensert.fitnesspursuit.resources.TextResKeys
 
 @Composable
-fun OneRm(viewModel: OneRmViewModel = viewModel()) {
-    val weightInput by viewModel.weightInput.collectAsStateWithLifecycle()
+fun OneRm(viewModel: OneRmViewModel = hiltViewModel()) {
+    val (weightInput, onWeightInputChange) = remember { mutableStateOf("") }
     val repsInput by viewModel.repsInput.collectAsStateWithLifecycle()
     val epleyRM by viewModel.epleyRM.collectAsStateWithLifecycle()
     val brzyckiRM by viewModel.brzyckiRM.collectAsStateWithLifecycle()
@@ -37,7 +40,6 @@ fun OneRm(viewModel: OneRmViewModel = viewModel()) {
     val mayhewRM by viewModel.mayhewRM.collectAsStateWithLifecycle()
     val oconnerRM by viewModel.oconnerRM.collectAsStateWithLifecycle()
     val wathenRM by viewModel.wathenRM.collectAsStateWithLifecycle()
-    val context = LocalContext.current
 
     Surface {
         Column(
@@ -56,13 +58,13 @@ fun OneRm(viewModel: OneRmViewModel = viewModel()) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
-                    ShadowedCard { Text(text = context.getString(R.string.weight_you_can_lift)) }
+                    ShadowedCard { Text(text = getStringRes(TextResKeys.WEIGHT_YOU_CAN_LIFT)) }
 
                     Spacer(modifier = Modifier.weight(1f))
 
                     OutlinedTextField(
                         value = weightInput,
-                        onValueChange = { viewModel.replaceCommaWithDotAndAllowOnlyOneDot(it) },
+                        onValueChange = { onWeightInputChange(it.convertToDouble().toString()) },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         modifier = Modifier.width(150.dp)
@@ -75,7 +77,7 @@ fun OneRm(viewModel: OneRmViewModel = viewModel()) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
-                    ShadowedCard { Text(text = context.getString(R.string.number_of_reps)) }
+                    ShadowedCard { Text(text = getStringRes(TextResKeys.NUMBER_OF_REPS)) }
 
                     Spacer(modifier = Modifier.weight(1f))
 
@@ -100,36 +102,52 @@ fun OneRm(viewModel: OneRmViewModel = viewModel()) {
                         }
                     }
                 ) {
-                    Text(text = context.getString(R.string.calculate))
+                    Text(text = getStringRes(TextResKeys.CALCULATE))
                 }
 
                 Spacer(Modifier.height(20.dp))
 
-                ShadowedCard { Text(text = "Epley: $epleyRM") }
+                ShadowedCard(animateContentSize = true) { Text(text = "Epley: $epleyRM") }
 
                 Spacer(Modifier.height(15.dp))
 
-                ShadowedCard { Text(text = "Brzycki: $brzyckiRM") }
+                ShadowedCard(animateContentSize = true) { Text(text = "Brzycki: $brzyckiRM") }
 
                 Spacer(Modifier.height(15.dp))
 
-                ShadowedCard { Text(text = "McGlothin: $mcglothinRM") }
+                ShadowedCard(animateContentSize = true) { Text(text = "McGlothin: $mcglothinRM") }
 
                 Spacer(Modifier.height(15.dp))
 
-                ShadowedCard { Text(text = "Lombardi: $lombardiRM") }
+                ShadowedCard(animateContentSize = true) { Text(text = "Lombardi: $lombardiRM") }
 
                 Spacer(Modifier.height(15.dp))
 
-                ShadowedCard { Text(text = "Mayhew ${context.getString(R.string.et_al)}.: $mayhewRM") }
+                ShadowedCard(animateContentSize = true) {
+                    Text(
+                        text = "Mayhew ${
+                        getStringRes(
+                            TextResKeys.ET_AL
+                        )
+                        }.: $mayhewRM"
+                    )
+                }
 
                 Spacer(Modifier.height(15.dp))
 
-                ShadowedCard { Text(text = "O'Conner ${context.getString(R.string.et_al)}. $oconnerRM") }
+                ShadowedCard(animateContentSize = true) {
+                    Text(
+                        text = "O'Conner ${
+                        getStringRes(
+                            TextResKeys.ET_AL
+                        )
+                        }. $oconnerRM"
+                    )
+                }
 
                 Spacer(Modifier.height(15.dp))
 
-                ShadowedCard { Text(text = "Wathen: $wathenRM") }
+                ShadowedCard(animateContentSize = true) { Text(text = "Wathen: $wathenRM") }
             }
         }
     }

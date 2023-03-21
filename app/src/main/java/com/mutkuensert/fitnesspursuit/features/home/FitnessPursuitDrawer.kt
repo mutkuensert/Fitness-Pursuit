@@ -19,7 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.mutkuensert.fitnesspursuit.components.ShadowedButton
 import com.mutkuensert.fitnesspursuit.components.ShadowedCard
 import com.mutkuensert.fitnesspursuit.core.getStringRes
-import com.mutkuensert.fitnesspursuit.navigation.BODY_SIZES
+import com.mutkuensert.fitnesspursuit.navigation.MEASUREMENT
 import com.mutkuensert.fitnesspursuit.navigation.ONE_RM
 import com.mutkuensert.fitnesspursuit.navigation.WARMUP_SETS
 import com.mutkuensert.fitnesspursuit.resources.TextResKeys
@@ -63,7 +63,7 @@ fun FitnessPursuitDrawer(onCloseDrawer: () -> Unit, navController: NavHostContro
         ShadowedButton(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-                navController.navigate(BODY_SIZES)
+                navController.navigate(MEASUREMENT)
                 onCloseDrawer()
             }
         ) {

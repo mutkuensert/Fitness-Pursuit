@@ -5,6 +5,7 @@ fun String.convertToDouble(): Double {
     var withoutExtraDots = ""
     var indexOfFirstDot: Int? = null
     var index = 0
+
     for (c in newValue) {
         if (index == 0 && c == '.') return 0.0
         if (indexOfFirstDot == null && c == '.') indexOfFirstDot = index
@@ -16,5 +17,6 @@ fun String.convertToDouble(): Double {
         }
         index += 1
     }
+
     return withoutExtraDots.toDouble()
 }

@@ -88,7 +88,7 @@ fun WarmupSets(viewModel: WarmupSetsViewModel = viewModel()) {
 
                 Spacer(Modifier.height(30.dp))
 
-                ShadowedCard {
+                ShadowedCard(animateContentSize = true) {
                     Row {
                         Text(text = "Set 2 (55%): ")
                         Text(text = "$set2 kg 8 ${context.getString(R.string.reps)}")
@@ -97,7 +97,7 @@ fun WarmupSets(viewModel: WarmupSetsViewModel = viewModel()) {
 
                 Spacer(Modifier.height(30.dp))
 
-                ShadowedCard {
+                ShadowedCard(animateContentSize = true) {
                     Row {
                         Text(text = "Set 3 (70%): ")
                         Text(text = "$set3 kg 5 ${context.getString(R.string.reps)}")
@@ -106,7 +106,7 @@ fun WarmupSets(viewModel: WarmupSetsViewModel = viewModel()) {
 
                 Spacer(Modifier.height(30.dp))
 
-                ShadowedCard {
+                ShadowedCard(animateContentSize = true) {
                     Row {
                         Text(text = "Set 4 (80%): ")
                         Text(text = "$set4 kg 3 ${context.getString(R.string.reps)}")
@@ -115,7 +115,7 @@ fun WarmupSets(viewModel: WarmupSetsViewModel = viewModel()) {
 
                 Spacer(Modifier.height(30.dp))
 
-                ShadowedCard {
+                ShadowedCard(animateContentSize = true) {
                     Row {
                         Text(text = "Set 5 (90%): ")
                         Text(text = "$set5 kg 1 ${context.getString(R.string.rep)}")

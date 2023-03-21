@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,24 +24,42 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun AutoCompleteTextField(
+    modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
     label: String? = null,
     placeholderText: String? = null,
-    searchResults: List<String>
+    trailingIcon: @Composable (() -> Unit)? = null,
+    data: List<String>
 ) {
+    var searchResults by remember { mutableStateOf(listOf<String>()) }
     var searchResultsVisibility by remember { mutableStateOf(false) }
 
-    Column {
+    LaunchedEffect(value) {
+        if (value.isBlank()) {
+            searchResultsVisibility = false
+        } else {
+            val filteredSearchResults = mutableListOf<String>()
+
+            data.distinct().forEach {
+                if (it.contains(value, true)) filteredSearchResults.add(it)
+            }
+
+            searchResults = filteredSearchResults
+
+            searchResultsVisibility = getSearchResultsVisibility(
+                value = value,
+                searchResults = searchResults
+            )
+        }
+    }
+
+    Column(modifier = modifier) {
         OutlinedTextField(
+            modifier = Modifier
+                .fillMaxWidth(),
             value = value,
-            onValueChange = {
-                onValueChange(it)
-                searchResultsVisibility = updateSearchResultsVisibility(
-                    value = it,
-                    searchResults = searchResults
-                )
-            },
+            onValueChange = onValueChange,
             placeholder = {
                 if (placeholderText != null) {
                     Text(text = placeholderText)
@@ -51,7 +70,8 @@ fun AutoCompleteTextField(
                     Text(text = label)
                 }
             },
-            singleLine = true
+            singleLine = true,
+            trailingIcon = trailingIcon
         )
 
         AnimatedVisibility(searchResultsVisibility) {
@@ -68,13 +88,7 @@ fun AutoCompleteTextField(
             ) {
                 items(searchResults) {
                     Text(
-                        modifier = Modifier.clickable {
-                            onValueChange(it)
-                            searchResultsVisibility = updateSearchResultsVisibility(
-                                value = it,
-                                searchResults = searchResults
-                            )
-                        },
+                        modifier = Modifier.clickable { onValueChange(it) },
                         text = it
                     )
                 }
@@ -83,7 +97,7 @@ fun AutoCompleteTextField(
     }
 }
 
-private fun updateSearchResultsVisibility(value: String, searchResults: List<String>): Boolean {
+private fun getSearchResultsVisibility(value: String, searchResults: List<String>): Boolean {
     return when {
         searchResults.size == 1 && value == searchResults[0] -> false
         searchResults.isNotEmpty() && value.isNotEmpty() -> true
