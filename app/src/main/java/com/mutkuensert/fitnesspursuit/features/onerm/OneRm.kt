@@ -155,6 +155,6 @@ fun OneRm(viewModel: OneRmViewModel = hiltViewModel()) {
 
 @Preview(showSystemUi = true)
 @Composable
-fun PreviewOneRmScreen() {
+private fun PreviewOneRmScreen() {
     OneRm()
 }

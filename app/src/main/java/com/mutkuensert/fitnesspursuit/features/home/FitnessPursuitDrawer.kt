@@ -74,6 +74,6 @@ fun FitnessPursuitDrawer(onCloseDrawer: () -> Unit, navController: NavHostContro
 
 @Preview(showSystemUi = true)
 @Composable
-fun PreviewDrawer() {
+private fun PreviewDrawer() {
     FitnessPursuitDrawer(onCloseDrawer = {}, navController = rememberNavController())
 }
