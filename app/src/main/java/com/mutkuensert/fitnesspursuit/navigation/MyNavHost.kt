@@ -33,12 +33,9 @@ fun MyNavHost(
         navigation(startDestination = BODY_MEASUREMENTS, route = MEASUREMENT) {
             composable(BODY_MEASUREMENTS) {
                 BodyMeasurementsScreen({ id: Int? ->
-                    navController.navigate(
-                        Uri.Builder()
-                            .path(BODY_MEASUREMENT_DETAILS)
-                            .apply { id?.let { appendQueryParameter(ATHLETE_ID, it.toString()) } }
-                            .toString()
-                    )
+                    val route =
+                        BODY_MEASUREMENT_DETAILS.addQueriesIfNotNull(ATHLETE_ID to id?.toString())
+                    navController.navigate(route)
                 })
             }
 
@@ -58,4 +55,14 @@ fun MyNavHost(
             }
         }
     }
+}
+
+private fun String.addQueriesIfNotNull(vararg keyValuePair: Pair<String, String?>): String {
+    val path = Uri.Builder().path(this)
+    keyValuePair.forEach {
+        if (it.second != null) {
+            path.appendQueryParameter(it.first, it.second)
+        }
+    }
+    return path.toString()
 }
