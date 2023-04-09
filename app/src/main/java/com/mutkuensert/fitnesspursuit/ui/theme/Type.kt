@@ -83,7 +83,7 @@ val MaterialTheme.appTypography: AppTypography by lazy {
             fontWeight = FontWeight.W400,
             fontSize = 16.sp,
             lineHeight = 24.sp,
-            color = TextColors.primaryDark
+            color = AppColors.primaryDark
         ),
         button = TextStyle(
             fontWeight = FontWeight.Medium,

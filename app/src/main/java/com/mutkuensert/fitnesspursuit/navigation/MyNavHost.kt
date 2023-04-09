@@ -47,11 +47,7 @@ fun MyNavHost(
                     }
                 )
             ) {
-                BodyMeasurementDetailsScreen({
-                    navController.navigate(BODY_MEASUREMENTS) {
-                        popUpTo(BODY_MEASUREMENTS)
-                    }
-                })
+                BodyMeasurementDetailsScreen(navigateToBodyMeasurements = navController::navigateUp)
             }
         }
     }

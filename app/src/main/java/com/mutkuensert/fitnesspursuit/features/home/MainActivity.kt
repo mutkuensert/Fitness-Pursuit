@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+private fun DefaultPreview() {
     FitnessPursuitTheme {
         FitnessPursuitHome()
     }

@@ -19,7 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.mutkuensert.fitnesspursuit.core.getStringRes
 import com.mutkuensert.fitnesspursuit.navigation.MyNavHost
 import com.mutkuensert.fitnesspursuit.resources.TextResKeys
-import com.mutkuensert.fitnesspursuit.ui.theme.TextColors
+import com.mutkuensert.fitnesspursuit.ui.theme.AppColors
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -47,7 +47,7 @@ fun FitnessPursuitHome() {
 }
 
 @Composable
-fun MyTopAppBar(scope: CoroutineScope, scaffoldState: ScaffoldState) {
+private fun MyTopAppBar(scope: CoroutineScope, scaffoldState: ScaffoldState) {
     TopAppBar(
         title = { Text(text = "Fitness Pursuit") },
         navigationIcon = {
@@ -58,13 +58,13 @@ fun MyTopAppBar(scope: CoroutineScope, scaffoldState: ScaffoldState) {
                 )
             }
         },
-        backgroundColor = TextColors.pennRed,
+        backgroundColor = AppColors.persianGreen,
         contentColor = Color.White
     )
 }
 
 @Preview(showBackground = true)
 @Composable
-fun FitnessPursuitHomePreview() {
+private fun FitnessPursuitHomePreview() {
     FitnessPursuitHome()
 }

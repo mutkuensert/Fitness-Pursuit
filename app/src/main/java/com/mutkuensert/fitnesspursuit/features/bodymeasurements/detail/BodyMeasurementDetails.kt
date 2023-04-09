@@ -40,7 +40,7 @@ import com.mutkuensert.fitnesspursuit.core.convertToDouble
 import com.mutkuensert.fitnesspursuit.core.getStringRes
 import com.mutkuensert.fitnesspursuit.data.BodyMeasurementDetailsDto
 import com.mutkuensert.fitnesspursuit.resources.TextResKeys
-import com.mutkuensert.fitnesspursuit.ui.theme.TextColors
+import com.mutkuensert.fitnesspursuit.ui.theme.AppColors
 import com.mutkuensert.fitnesspursuit.ui.theme.appTypography
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -53,14 +53,14 @@ private const val OVERALL_WIDTH = MEASUREMENT_FIELD_WIDTH * 2 + HORIZONTAL_SPACE
 
 @Composable
 fun BodyMeasurementDetailsScreen(
-    navigateToBodySizeList: () -> Unit,
+    navigateToBodyMeasurements: () -> Unit,
     viewModel: BodyMeasurementDetailsViewModel = hiltViewModel()
 ) {
     val athleteNames = viewModel.athleteNames.collectAsStateWithLifecycle()
     val bodyMeasurementDetails = viewModel.bodyMeasurementDetails.collectAsStateWithLifecycle()
 
     BodyMeasurementDetails(
-        navigateToBodySizeList,
+        navigateToBodyMeasurements,
         viewModel::saveData,
         athleteNames.value,
         bodyMeasurementDetails.value
@@ -68,7 +68,7 @@ fun BodyMeasurementDetailsScreen(
 }
 
 @Composable
-fun BodyMeasurementDetails(
+private fun BodyMeasurementDetails(
     navigateToBodySizeList: () -> Unit,
     saveData: (BodyMeasurementDetailsDto) -> Unit,
     athleteNames: List<String>,
@@ -237,14 +237,14 @@ fun BodyMeasurementDetails(
                     Text(
                         text = "${toLocalDate()} ${toLocalTime().hour}.${toLocalTime().minute} ",
                         style = MaterialTheme.appTypography.h6,
-                        color = TextColors.viridianGreen
+                        color = AppColors.persianGreen
                     )
                 }
 
                 Icon(
                     modifier = Modifier.requiredHeight(20.dp),
                     painter = painterResource(R.drawable.open),
-                    tint = TextColors.viridianGreen,
+                    tint = AppColors.persianGreen,
                     contentDescription = getStringRes(TextResKeys.SET_CUSTOM_DATE_TIME)
                 )
             }
@@ -276,7 +276,7 @@ fun BodyMeasurementDetails(
                 },
                 text = getStringRes(TextResKeys.SAVE),
                 style = MaterialTheme.appTypography.h6,
-                color = TextColors.viridianGreen
+                color = AppColors.persianGreen
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -285,7 +285,7 @@ fun BodyMeasurementDetails(
 }
 
 @Composable
-fun LeftRightMeasurementTextField(
+private fun LeftRightMeasurementTextField(
     modifier: Modifier = Modifier,
     title: String,
     left: String,
@@ -318,7 +318,7 @@ fun LeftRightMeasurementTextField(
 }
 
 @Composable
-fun MeasurementTextField(
+private fun MeasurementTextField(
     modifier: Modifier = Modifier,
     label: String? = null,
     placeholderStringResKey: String? = null,
@@ -348,6 +348,6 @@ fun MeasurementTextField(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun PreviewBodySizes() {
+private fun PreviewBodySizes() {
     BodyMeasurementDetails({}, {}, listOf(), null)
 }
