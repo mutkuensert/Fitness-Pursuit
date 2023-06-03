@@ -1,0 +1,21 @@
+on:
+  pull_request:
+    branches:    
+      - master
+  
+jobs:
+  ktlint:
+    name: Run ktlint on pr merges.
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17.0.5'
+        
+      - name: Run Ktlint
+        run: bash ./gradlew ktlintFormat
