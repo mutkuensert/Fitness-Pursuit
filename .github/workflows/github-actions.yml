@@ -15,6 +15,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
+          distribution: 'oracle'
           java-version: '17.0.5'
         
       - name: Run Ktlint
