@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Fitness Pursuit</string>
+    <string name="ask_weight">Kaç kilogram ağırlıkla çalışacaksınız?</string>
+    <string name="calculate">Hesapla</string>
+    <string name="warmup_set_1_description">Çok hafif ağırlıklar.</string>
+    <string name="rep">Tekrar</string>
+    <string name="reps">Tekrar</string>
+    <string name="et_al">ve ark</string>
+    <string name="app_bar_menu_button_description">Uygulama menüsü</string>
+    <string name="close_navigation_menu">Uygulama menüsünü kapat</string>
+    <string name="app_icon_description">Uygulama logosu</string>
+    <string name="bicep">Bicep</string>
+    <string name="left">Sol</string>
+    <string name="right">Sağ</string>
+    <string name="forearm">Ön kol</string>
+    <string name="calf">Kalf</string>
+    <string name="chest">Göğüs</string>
+    <string name="hips">Kalça</string>
+    <string name="neck">Boyun</string>
+    <string name="shoulders">Omuz</string>
+    <string name="thigh">Bacak</string>
+    <string name="save">Kaydet</string>
+    <string name="waist">Bel</string>
+    <string name="warmup_sets">Isınma Setleri</string>
+    <string name="one_rm">1 RM</string>
+    <string name="body_sizes">Vücut Ölçüleri</string>
+    <string name="set_custom_date_time">Özel tarih ve saat ayarlayın</string>
+    <string name="athlete_name">Atlet ismi</string>
+    <string name="add_new">Yeni kayıt</string>
+    <string name="weight">Kilo</string>
+    <string name="kg">Kg</string>
+</resources>
