@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mutkuensert.fitnesspursuit.components.FPTextField
 import com.mutkuensert.fitnesspursuit.components.ShadowedButton
 import com.mutkuensert.fitnesspursuit.components.ShadowedCard
 import com.mutkuensert.fitnesspursuit.core.convertToDouble
@@ -50,7 +51,7 @@ fun OneRm(viewModel: OneRmViewModel = hiltViewModel()) {
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
-                    .width(300.dp),
+                    .width(200.dp),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -58,16 +59,17 @@ fun OneRm(viewModel: OneRmViewModel = hiltViewModel()) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
-                    ShadowedCard { Text(text = getStringRes(TextResKeys.WEIGHT_YOU_CAN_LIFT)) }
+                    ShadowedCard { Text(text = getStringRes(TextResKeys.WEIGHT)) }
 
                     Spacer(modifier = Modifier.weight(1f))
 
-                    OutlinedTextField(
+                    FPTextField(
                         value = weightInput,
                         onValueChange = { onWeightInputChange(it.convertToDouble().toString()) },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        modifier = Modifier.width(150.dp)
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.width(100.dp)
                     )
                 }
 
@@ -77,16 +79,17 @@ fun OneRm(viewModel: OneRmViewModel = hiltViewModel()) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Start
                 ) {
-                    ShadowedCard { Text(text = getStringRes(TextResKeys.NUMBER_OF_REPS)) }
+                    ShadowedCard { Text(text = getStringRes(TextResKeys.REPS)) }
 
                     Spacer(modifier = Modifier.weight(1f))
 
-                    OutlinedTextField(
+                    FPTextField(
                         value = repsInput,
                         onValueChange = { viewModel.dontAllowDotOrComma(it) },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        modifier = Modifier.width(150.dp)
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.width(100.dp)
                     )
                 }
 
@@ -126,9 +129,9 @@ fun OneRm(viewModel: OneRmViewModel = hiltViewModel()) {
                 ShadowedCard(animateContentSize = true) {
                     Text(
                         text = "Mayhew ${
-                        getStringRes(
-                            TextResKeys.ET_AL
-                        )
+                            getStringRes(
+                                TextResKeys.ET_AL
+                            )
                         }.: $mayhewRM"
                     )
                 }
@@ -138,9 +141,9 @@ fun OneRm(viewModel: OneRmViewModel = hiltViewModel()) {
                 ShadowedCard(animateContentSize = true) {
                     Text(
                         text = "O'Conner ${
-                        getStringRes(
-                            TextResKeys.ET_AL
-                        )
+                            getStringRes(
+                                TextResKeys.ET_AL
+                            )
                         }. $oconnerRM"
                     )
                 }

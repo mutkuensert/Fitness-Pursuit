@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mutkuensert.fitnesspursuit.R
+import com.mutkuensert.fitnesspursuit.components.FPTextField
 import com.mutkuensert.fitnesspursuit.components.ShadowedButton
 import com.mutkuensert.fitnesspursuit.components.ShadowedCard
 import com.mutkuensert.fitnesspursuit.ui.theme.FitnessPursuitTheme
@@ -48,12 +49,13 @@ fun WarmupSets(viewModel: WarmupSetsViewModel = viewModel()) {
             Spacer(Modifier.height(30.dp))
 
             Row {
-                OutlinedTextField(
+                FPTextField(
                     value = weightInput,
                     onValueChange = { viewModel.replaceCommaWithDotAndAllowOnlyOneDot(it) },
                     singleLine = true,
+                    shape = RoundedCornerShape(8.dp),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    modifier = Modifier.width(150.dp)
+                    modifier = Modifier.width(100.dp)
                 )
 
                 Spacer(modifier = Modifier.width(10.dp))

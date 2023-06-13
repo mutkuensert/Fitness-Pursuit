@@ -17,7 +17,6 @@ object TextResKeys {
     const val FOREARM = "forearm"
     const val HIPS = "hips"
     const val LEFT = "left"
-    const val NUMBER_OF_REPS = "number_of_reps"
     const val NECK = "neck"
     const val ONE_RM = "one_rm"
     const val REP = "rep"
@@ -31,5 +30,5 @@ object TextResKeys {
     const val WARMUP_SETS = "warmup_sets"
     const val WARMUP_SET_1_DESCRIPTION = "warmup_set_1_description"
     const val WEIGHT = "weight"
-    const val WEIGHT_YOU_CAN_LIFT = "weight_you_can_lift"
+    const val KG = "kg"
 }

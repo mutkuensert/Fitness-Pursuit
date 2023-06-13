@@ -6,8 +6,6 @@
     <string name="warmup_set_1_description">Çok hafif ağırlıklar.</string>
     <string name="rep">Tekrar</string>
     <string name="reps">Tekrar</string>
-    <string name="weight_you_can_lift">Kaldırabildiğiniz ağırlık:</string>
-    <string name="number_of_reps">Tekrar sayısı:</string>
     <string name="et_al">ve ark</string>
     <string name="app_bar_menu_button_description">Uygulama menüsü</string>
     <string name="close_navigation_menu">Uygulama menüsünü kapat</string>
@@ -31,4 +29,5 @@
     <string name="athlete_name">Atlet ismi</string>
     <string name="add_new">Yeni kayıt</string>
     <string name="weight">Kilo</string>
+    <string name="kg">Kg</string>
 </resources>
