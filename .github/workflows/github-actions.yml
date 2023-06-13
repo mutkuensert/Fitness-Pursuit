@@ -3,7 +3,7 @@ on:
   
 jobs:
   ktlint:
-    name: Run ktlint on pr merges.
+    name: Run ktlint.
     runs-on: ubuntu-latest
     
     steps:
@@ -19,3 +19,9 @@ jobs:
         
       - name: Run Ktlint
         run: bash ./gradlew ktlintFormat
+        
+      - name: Amend changes
+        run: |
+          git config --global user.name 'M. Utku Ensert'
+          git config --global user.email 'mutkuensert@hotmail.com'
+          git commit --amend --no-edit
