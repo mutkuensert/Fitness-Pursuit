@@ -212,7 +212,7 @@ private fun BodyMeasurementDetails(
             MeasurementTextField(
                 value = neck,
                 onValueChange = onNeckChange,
-                label = getStringRes(TextResKeys.SHOULDERS)
+                label = getStringRes(TextResKeys.NECK)
             )
 
             MeasurementTextField(

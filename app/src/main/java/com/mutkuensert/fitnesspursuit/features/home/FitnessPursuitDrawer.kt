@@ -20,8 +20,8 @@ import com.mutkuensert.fitnesspursuit.components.ShadowedButton
 import com.mutkuensert.fitnesspursuit.components.ShadowedCard
 import com.mutkuensert.fitnesspursuit.core.getStringRes
 import com.mutkuensert.fitnesspursuit.navigation.MEASUREMENT
-import com.mutkuensert.fitnesspursuit.navigation.ONE_RM
-import com.mutkuensert.fitnesspursuit.navigation.WARMUP_SETS
+import com.mutkuensert.fitnesspursuit.navigation.ONE_RM_SCREEN
+import com.mutkuensert.fitnesspursuit.navigation.WARMUP_SCREEN
 import com.mutkuensert.fitnesspursuit.resources.TextResKeys
 
 private const val VERTICAL_SPACE = 15
@@ -43,17 +43,17 @@ fun FitnessPursuitDrawer(onCloseDrawer: () -> Unit, navController: NavHostContro
         ShadowedButton(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-                navController.navigate(WARMUP_SETS)
+                navController.navigate(WARMUP_SCREEN)
                 onCloseDrawer()
             }
         ) {
-            Text(text = getStringRes(WARMUP_SETS))
+            Text(text = getStringRes(TextResKeys.WARMUP_SETS))
         }
 
         ShadowedButton(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-                navController.navigate(ONE_RM)
+                navController.navigate(ONE_RM_SCREEN)
                 onCloseDrawer()
             }
         ) {
