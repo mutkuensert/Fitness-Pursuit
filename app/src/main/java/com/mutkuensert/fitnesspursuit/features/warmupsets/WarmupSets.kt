@@ -27,6 +27,8 @@ import com.mutkuensert.fitnesspursuit.R
 import com.mutkuensert.fitnesspursuit.components.FPTextField
 import com.mutkuensert.fitnesspursuit.components.ShadowedButton
 import com.mutkuensert.fitnesspursuit.components.ShadowedCard
+import com.mutkuensert.fitnesspursuit.core.getStringRes
+import com.mutkuensert.fitnesspursuit.resources.TextResKeys
 import com.mutkuensert.fitnesspursuit.ui.theme.FitnessPursuitTheme
 
 @Composable
@@ -44,7 +46,7 @@ fun WarmupSets(viewModel: WarmupSetsViewModel = viewModel()) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            ShadowedCard { Text(text = context.getString(R.string.ask_weight)) }
+            ShadowedCard { Text(text = getStringRes(TextResKeys.ASK_WEIGHT)) }
 
             Spacer(Modifier.height(30.dp))
 
@@ -67,7 +69,7 @@ fun WarmupSets(viewModel: WarmupSetsViewModel = viewModel()) {
                         )
                     }
                 }) {
-                    Text(text = context.getString(R.string.calculate))
+                    Text(text = getStringRes(TextResKeys.CALCULATE))
                 }
             }
 
@@ -83,7 +85,7 @@ fun WarmupSets(viewModel: WarmupSetsViewModel = viewModel()) {
                 ShadowedCard {
                     Row {
                         Text(text = "Set 1: ")
-                        Text(text = context.getString(R.string.warmup_set_1_description))
+                        Text(text = getStringRes(TextResKeys.WARMUP_SET_1_DESCRIPTION))
                         Text(text = "15 ${context.getString(R.string.reps)}")
                     }
                 }

@@ -19,22 +19,22 @@ const val ATHLETE_ID = "id"
 fun MyNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController,
-    startDestination: String = WARMUP_SETS
+    startDestination: String = WARMUP_SCREEN
 ) {
     NavHost(
         modifier = modifier,
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(WARMUP_SETS) { WarmupSets() }
+        composable(WARMUP_SCREEN) { WarmupSets() }
 
-        composable(ONE_RM) { OneRm() }
+        composable(ONE_RM_SCREEN) { OneRm() }
 
-        navigation(startDestination = BODY_MEASUREMENTS, route = MEASUREMENT) {
-            composable(BODY_MEASUREMENTS) {
+        navigation(startDestination = BODY_MEASUREMENTS_SCREEN, route = MEASUREMENT) {
+            composable(BODY_MEASUREMENTS_SCREEN) {
                 BodyMeasurementsScreen({ id: Int? ->
                     val route =
-                        BODY_MEASUREMENT_DETAILS.addQueriesIfNotNull(ATHLETE_ID to id?.toString())
+                        BODY_MEASUREMENT_DETAILS_SCREEN.addQueriesIfNotNull(ATHLETE_ID to id?.toString())
                     navController.navigate(route)
                 })
             }
