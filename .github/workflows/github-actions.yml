@@ -15,6 +15,7 @@ jobs:
         with:
           distribution: 'oracle'
           java-version: '17.0.5'
+          cache: 'gradle'
         
       - name: Run Ktlint
         run: bash ./gradlew ktlintFormat
