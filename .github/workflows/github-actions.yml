@@ -24,5 +24,6 @@ jobs:
         run: |
           git config --global user.name 'M. Utku Ensert'
           git config --global user.email 'mutkuensert@hotmail.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git commit --amend --no-edit
           git push -f
