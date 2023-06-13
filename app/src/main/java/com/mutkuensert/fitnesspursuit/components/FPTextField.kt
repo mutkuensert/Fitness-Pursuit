@@ -101,7 +101,7 @@ fun FPTextField(
 
 @Preview(showBackground = true)
 @Composable
-private fun PreviewSurveyTextField() {
+private fun PreviewFPTextField() {
     Column {
         val (value, onValueChange) = remember { mutableStateOf("") }
 
