@@ -127,25 +127,13 @@ fun OneRm(viewModel: OneRmViewModel = hiltViewModel()) {
                 Spacer(Modifier.height(15.dp))
 
                 ShadowedCard(animateContentSize = true) {
-                    Text(
-                        text = "Mayhew ${
-                        getStringRes(
-                            TextResKeys.ET_AL
-                        )
-                        }.: $mayhewRM"
-                    )
+                    Text(text = "Mayhew ${getStringRes(TextResKeys.ET_AL)}.: $mayhewRM")
                 }
 
                 Spacer(Modifier.height(15.dp))
 
                 ShadowedCard(animateContentSize = true) {
-                    Text(
-                        text = "O'Conner ${
-                        getStringRes(
-                            TextResKeys.ET_AL
-                        )
-                        }. $oconnerRM"
-                    )
+                    Text(text = "O'Conner ${getStringRes(TextResKeys.ET_AL)}. $oconnerRM")
                 }
 
                 Spacer(Modifier.height(15.dp))
