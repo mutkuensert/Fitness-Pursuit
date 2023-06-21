@@ -5,8 +5,6 @@ plugins {
     id 'com.google.dagger.hilt.android'
 }
 
-apply from: "ktlint.gradle"
-
 android {
     namespace 'com.mutkuensert.fitnesspursuit'
     compileSdk 33
