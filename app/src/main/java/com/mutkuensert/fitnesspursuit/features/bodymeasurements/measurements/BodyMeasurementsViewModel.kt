@@ -5,11 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.mutkuensert.fitnesspursuit.data.BodyMeasurementDetailsDto
 import com.mutkuensert.fitnesspursuit.data.source.BodyMeasurementsDao
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class BodyMeasurementsViewModel @Inject constructor(private val bodySizeDao: BodyMeasurementsDao) :
