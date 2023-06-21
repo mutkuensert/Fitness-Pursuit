@@ -8,12 +8,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.DismissValue
 import androidx.compose.material.ExperimentalMaterialApi
@@ -21,12 +25,15 @@ import androidx.compose.material.FractionalThreshold
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.RadioButton
 import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.Text
 import androidx.compose.material.rememberDismissState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,7 +43,10 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -50,7 +60,6 @@ import com.mutkuensert.fitnesspursuit.resources.TextResKeys
 import com.mutkuensert.fitnesspursuit.ui.theme.AppColors
 import java.time.LocalDateTime
 
-private const val HORIZONTAL_SPACE = 10
 private const val VERTICAL_SPACE = 20
 private const val OVERALL_WIDTH = 280
 
@@ -67,11 +76,11 @@ fun BodyMeasurementsScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         BodyMeasurements(
-            navigateToBodyMeasurementDetails,
-            bodyMeasurements.value,
-            athleteNames.value,
-            viewModel::onNameSearch,
-            viewModel::onDeleteItem
+            navigateToBodyMeasurementDetails = navigateToBodyMeasurementDetails,
+            bodyMeasurements = bodyMeasurements.value,
+            athleteNames = athleteNames.value,
+            onNameSearch = viewModel::onNameSearch,
+            onDeleteItem = viewModel::onDeleteItem
         )
     }
 
@@ -94,7 +103,7 @@ private fun BodyMeasurements(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(VERTICAL_SPACE.dp)
     ) {
-        Spacer(modifier = Modifier.height(100.dp))
+        Spacer(modifier = Modifier.height(50.dp))
 
         IconButton(onClick = { navigateToBodyMeasurementDetails(null) }) {
             Icon(
@@ -113,6 +122,25 @@ private fun BodyMeasurements(
                 onNameSearch(it)
             },
             data = athleteNames
+        )
+
+        val infoKeysToRadioOptions = listOf(
+            TextResKeys.WEIGHT to getStringRes(TextResKeys.WEIGHT),
+            TextResKeys.BICEP to getStringRes(TextResKeys.BICEP),
+            TextResKeys.FOREARM to getStringRes(TextResKeys.FOREARM),
+            TextResKeys.CALF to getStringRes(TextResKeys.CALF),
+            TextResKeys.THIGH to getStringRes(TextResKeys.THIGH),
+            TextResKeys.CHEST to getStringRes(TextResKeys.CHEST),
+            TextResKeys.HIPS to getStringRes(TextResKeys.HIPS),
+            TextResKeys.NECK to getStringRes(TextResKeys.NECK),
+            TextResKeys.SHOULDERS to getStringRes(TextResKeys.SHOULDERS),
+            TextResKeys.WAIST to getStringRes(TextResKeys.WAIST),
+        )
+        val selectedInfoIndex = remember { mutableIntStateOf(0) }
+
+        InfoSelector(
+            infoKeysToRadioOptions = infoKeysToRadioOptions,
+            selectionIndex = selectedInfoIndex
         )
 
         LazyColumn {
@@ -141,7 +169,8 @@ private fun BodyMeasurements(
                         dismissThresholds = { FractionalThreshold(0.70f) },
                         dismissContent = {
                             SearchResultItem(
-                                bodySizes = bodyMeasurementDetailsDto,
+                                bodyMeasurementDetails = bodyMeasurementDetailsDto,
+                                selectedAthleteInfoKey = infoKeysToRadioOptions[selectedInfoIndex.value].first,
                                 navigateToBodyMeasurementDetails = navigateToBodyMeasurementDetails
                             )
                         }
@@ -160,9 +189,10 @@ private fun SwipeBackground() {
     Row(
         modifier = Modifier
             .background(color = AppColors.burntSienna, shape = RoundedCornerShape(8.dp))
-            .fillMaxWidth()
+            .fillMaxSize()
             .padding(5.dp),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         DeleteIcon()
         DeleteIcon()
@@ -179,27 +209,121 @@ private fun DeleteIcon() {
 }
 
 @Composable
+fun InfoSelector(
+    infoKeysToRadioOptions: List<Pair<String, String>>,
+    selectionIndex: MutableState<Int>
+) {
+    LazyRow(Modifier.selectableGroup()) {
+        itemsIndexed(infoKeysToRadioOptions.map { it.second }) { index, text ->
+            Row(
+                Modifier
+                    .selectable(
+                        selected = (index == selectionIndex.value),
+                        onClick = { selectionIndex.value = index },
+                        role = Role.RadioButton
+                    )
+                    .padding(horizontal = 10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                RadioButton(
+                    selected = (index == selectionIndex.value),
+                    onClick = null
+                )
+                Text(
+                    text = text,
+                    modifier = Modifier.padding(start = 5.dp)
+                )
+            }
+        }
+    }
+}
+
+@Composable
 private fun SearchResultItem(
-    bodySizes: BodyMeasurementDetailsDto,
+    bodyMeasurementDetails: BodyMeasurementDetailsDto,
+    selectedAthleteInfoKey: String,
     navigateToBodyMeasurementDetails: (id: Int?) -> Unit
 ) {
-    Row(
+    Column(
         modifier = Modifier
+            .width(OVERALL_WIDTH.dp)
             .shadow(shape = RoundedCornerShape(8.dp), elevation = 5.dp)
             .background(color = MaterialTheme.colors.surface, shape = RoundedCornerShape(8.dp))
             .clip(RoundedCornerShape(8.dp))
-            .clickable { navigateToBodyMeasurementDetails(bodySizes.id) }
+            .clickable { navigateToBodyMeasurementDetails(bodyMeasurementDetails.id) }
             .padding(5.dp),
-        horizontalArrangement = Arrangement.spacedBy(HORIZONTAL_SPACE.dp)
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = bodySizes.athleteName,
+            text = bodyMeasurementDetails.athleteName,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            modifier = Modifier.weight(1f)
+            fontWeight = FontWeight.Bold,
         )
 
-        with(bodySizes.date) { Text(text = "$dayOfMonth.$monthValue.$year") }
+        val context = LocalContext.current
+        val selectedAthleteInfo = try {
+            with(TextResKeys) {
+                when (selectedAthleteInfoKey) {
+                    WEIGHT -> getStringRes(context, WEIGHT) + ": " + bodyMeasurementDetails.weight!!.toString()
+                    BICEP -> getStringRes(
+                        context = context,
+                        key = SELECTED_ATHLETE_INFO_LR,
+                        args = arrayOf(
+                            getStringRes(context, BICEP),
+                            bodyMeasurementDetails.leftBicep!!,
+                            bodyMeasurementDetails.rightBicep!!
+                        )
+                    )
+
+                    FOREARM -> getStringRes(
+                        context = context,
+                        key = SELECTED_ATHLETE_INFO_LR,
+                        args = arrayOf(
+                            getStringRes(context, FOREARM),
+                            bodyMeasurementDetails.leftForearm!!,
+                            bodyMeasurementDetails.rightForearm!!
+                        )
+                    )
+
+                    CALF -> getStringRes(
+                        context = context,
+                        key = SELECTED_ATHLETE_INFO_LR,
+                        args = arrayOf(
+                            getStringRes(context, CALF),
+                            bodyMeasurementDetails.leftCalf!!,
+                            bodyMeasurementDetails.rightCalf!!
+                        )
+                    )
+
+                    THIGH -> getStringRes(
+                        context = context,
+                        key = SELECTED_ATHLETE_INFO_LR,
+                        args = arrayOf(
+                            getStringRes(context, THIGH),
+                            bodyMeasurementDetails.leftThigh!!,
+                            bodyMeasurementDetails.rightThigh!!
+                        )
+                    )
+
+                    CHEST -> getStringRes(context, CHEST) + ": " + bodyMeasurementDetails.chest!!.toString()
+                    HIPS -> getStringRes(context, HIPS) + ": " + bodyMeasurementDetails.hips!!.toString()
+                    NECK -> getStringRes(context, NECK) + ": " + bodyMeasurementDetails.neck!!.toString()
+                    SHOULDERS -> {
+                        getStringRes(context, SHOULDERS) + ": " + bodyMeasurementDetails.shoulders!!.toString()
+                    }
+
+                    WAIST -> getStringRes(context, WAIST) + ": " + bodyMeasurementDetails.waist!!.toString()
+                    else -> ""
+                }
+            }
+        } catch (error: NullPointerException) {
+            ""
+        }
+
+        Text(text = selectedAthleteInfo)
+
+        with(bodyMeasurementDetails.date) { Text(text = "$dayOfMonth.$monthValue.$year") }
     }
 }
 
@@ -225,15 +349,16 @@ private fun PreviewBodySizeList() {
         waist = 80.0
     )
     val list = mutableListOf<BodyMeasurementDetailsDto>()
+
     repeat(50) {
-        list.add(fakeData)
+        list.add(fakeData.copy().apply { id = it })
     }
 
     BodyMeasurements(
         navigateToBodyMeasurementDetails = { },
-        list,
-        list.map { it.athleteName },
-        {},
-        {}
+        bodyMeasurements = list,
+        athleteNames = list.map { it.athleteName },
+        onNameSearch = {},
+        onDeleteItem = {}
     )
 }

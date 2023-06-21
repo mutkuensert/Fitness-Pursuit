@@ -46,7 +46,7 @@ fun WarmupSets(viewModel: WarmupSetsViewModel = viewModel()) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            ShadowedCard { Text(text = getStringRes(TextResKeys.ASK_WEIGHT)) }
+            ShadowedCard { Text(text = getStringRes(TextResKeys.ASK_WORKOUT_WEIGHT)) }
 
             Spacer(Modifier.height(30.dp))
 

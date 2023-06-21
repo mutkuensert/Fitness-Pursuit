@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Fitness Pursuit</string>
-    <string name="ask_weight">How many kilograms are you going to workout?</string>
+    <string name="ask_workout_weight">Kilograms to workout with</string>
     <string name="calculate">Calculate</string>
     <string name="warmup_set_1_description">Very light weights.</string>
     <string name="rep">Rep</string>
@@ -29,4 +29,5 @@
     <string name="add_new">Add new</string>
     <string name="weight">Weight</string>
     <string name="kg">Kg</string>
+    <string name="selected_athlete_info_lr">%s: Left: %.1f Right %.1f</string>
 </resources>
