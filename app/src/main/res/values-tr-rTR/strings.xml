@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Fitness Pursuit</string>
+    <string name="app_name">Gym Tools</string>
     <string name="ask_workout_weight">Çalışılacak ağırlık</string>
     <string name="calculate">Hesapla</string>
     <string name="warmup_set_1_description">Çok hafif ağırlıklar.</string>
@@ -31,4 +31,5 @@
     <string name="weight">Kilo</string>
     <string name="kg">Kg</string>
     <string name="selected_athlete_info_lr">%s: Sol: %.1f Sağ: %.1f</string>
+    <string name="one_rm_info">Lütfen düzgün hesaplanması için tekrar sayısını 1 ile 10 arasında girin.</string>
 </resources>
