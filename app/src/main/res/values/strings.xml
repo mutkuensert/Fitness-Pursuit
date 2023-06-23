@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Fitness Pursuit</string>
+    <string name="app_name">Gym Tools</string>
     <string name="ask_workout_weight">Kilograms to workout with</string>
     <string name="calculate">Calculate</string>
     <string name="warmup_set_1_description">Very light weights.</string>
@@ -30,4 +30,5 @@
     <string name="weight">Weight</string>
     <string name="kg">Kg</string>
     <string name="selected_athlete_info_lr">%s: Left: %.1f Right %.1f</string>
+    <string name="one_rm_info">Please remember, reps should be between 1 and 10 for proper calculation.</string>
 </resources>

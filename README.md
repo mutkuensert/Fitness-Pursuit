@@ -1,4 +1,4 @@
-# Fitness-Pursuit
+# Gym-Tools
 
 ## License
 ```xml

@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'com.mutkuensert.fitnesspursuit'
+    namespace 'com.mutkuensert.gymtools'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.mutkuensert.fitnesspursuit"
+        applicationId "com.mutkuensert.gymtools"
         minSdk 26
         targetSdk 33
         versionCode 1
