@@ -68,7 +68,7 @@ fun AutoCompleteTextField(
             },
             label = {
                 if (label != null) {
-                    Text(text = label)
+                    Text(text = label, color = Color.Black)
                 }
             },
             singleLine = true,
