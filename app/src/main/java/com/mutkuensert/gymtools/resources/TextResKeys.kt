@@ -13,7 +13,6 @@ object TextResKeys {
     const val CALF = "calf"
     const val CHEST = "chest"
     const val CLOSE_NAVIGATION_MENU = "close_navigation_menu"
-    const val ET_AL = "et_al"
     const val FOREARM = "forearm"
     const val HIPS = "hips"
     const val LEFT = "left"
