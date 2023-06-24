@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -71,7 +72,12 @@ fun AutoCompleteTextField(
                 }
             },
             singleLine = true,
-            trailingIcon = trailingIcon
+            trailingIcon = trailingIcon,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                unfocusedBorderColor = Color.Gray,
+                focusedBorderColor = Color.DarkGray
+            ),
+            shape = RoundedCornerShape(8.dp)
         )
 
         AnimatedVisibility(searchResultsVisibility) {
