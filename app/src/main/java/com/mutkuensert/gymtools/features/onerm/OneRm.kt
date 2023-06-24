@@ -37,13 +37,7 @@ import com.mutkuensert.gymtools.resources.TextResKeys
 fun OneRm(viewModel: OneRmViewModel = hiltViewModel()) {
     val (weightInput, onWeightInputChange) = remember { mutableStateOf("") }
     val repsInput by viewModel.repsInput.collectAsStateWithLifecycle()
-    val epleyRM by viewModel.epleyRM.collectAsStateWithLifecycle()
-    val brzyckiRM by viewModel.brzyckiRM.collectAsStateWithLifecycle()
-    val mcglothinRM by viewModel.mcglothinRM.collectAsStateWithLifecycle()
-    val lombardiRM by viewModel.lombardiRM.collectAsStateWithLifecycle()
-    val mayhewRM by viewModel.mayhewRM.collectAsStateWithLifecycle()
-    val oconnerRM by viewModel.oconnerRM.collectAsStateWithLifecycle()
-    val wathenRM by viewModel.wathenRM.collectAsStateWithLifecycle()
+    val averageRm by viewModel.averageRm.collectAsStateWithLifecycle()
 
     Surface {
         Column(
@@ -120,33 +114,7 @@ fun OneRm(viewModel: OneRmViewModel = hiltViewModel()) {
 
                 Spacer(Modifier.height(20.dp))
 
-                Text(text = "Epley: $epleyRM")
-
-                Spacer(Modifier.height(15.dp))
-
-                Text(text = "Brzycki: $brzyckiRM")
-
-                Spacer(Modifier.height(15.dp))
-
-                Text(text = "McGlothin: $mcglothinRM")
-
-                Spacer(Modifier.height(15.dp))
-
-                Text(text = "Lombardi: $lombardiRM")
-
-                Spacer(Modifier.height(15.dp))
-
-                Text(text = "Mayhew ${getStringRes(TextResKeys.ET_AL)}.: $mayhewRM")
-
-
-                Spacer(Modifier.height(15.dp))
-
-                Text(text = "O'Conner ${getStringRes(TextResKeys.ET_AL)}. $oconnerRM")
-
-
-                Spacer(Modifier.height(15.dp))
-
-                Text(text = "Wathen: $wathenRM")
+                Text(text = "1 RM: $averageRm")
             }
         }
     }
