@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 
 @HiltViewModel
 class OneRmViewModel @Inject constructor() : ViewModel() {
@@ -67,7 +68,8 @@ private fun Double.withDecimalDigits(number: Int = 1): Double {
         diesisForDecimals += "#"
     }
 
-    val df = DecimalFormat("#.$diesisForDecimals")
+    val symbols = DecimalFormatSymbols().apply { decimalSeparator = '.' }
+    val df = DecimalFormat("#.$diesisForDecimals", symbols)
     df.roundingMode = RoundingMode.HALF_EVEN
     return df.format(this).toDouble()
 }
