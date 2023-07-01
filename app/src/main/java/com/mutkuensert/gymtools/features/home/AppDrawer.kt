@@ -67,7 +67,7 @@ fun AppDrawer(onCloseDrawer: () -> Unit, navController: NavHostController) {
                 onCloseDrawer()
             }
         ) {
-            Text(text = getStringRes(TextResKeys.BODY_SIZES))
+            Text(text = getStringRes(TextResKeys.BODY_MEASUREMENTS))
         }
     }
 }

@@ -8,7 +8,7 @@ object TextResKeys {
     const val ASK_WORKOUT_WEIGHT = "ask_workout_weight"
     const val ATHLETE_NAME = "athlete_name"
     const val BICEP = "bicep"
-    const val BODY_SIZES = "body_sizes"
+    const val BODY_MEASUREMENTS = "body_measurements"
     const val CALCULATE = "calculate"
     const val CALF = "calf"
     const val CHEST = "chest"
