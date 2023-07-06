@@ -15,6 +15,7 @@ object TextResKeys {
     const val CLOSE_NAVIGATION_MENU = "close_navigation_menu"
     const val FOREARM = "forearm"
     const val HIPS = "hips"
+    const val KG = "kg"
     const val LEFT = "left"
     const val NECK = "neck"
     const val ONE_RM = "one_rm"
@@ -28,8 +29,9 @@ object TextResKeys {
     const val SHOULDERS = "shoulders"
     const val THIGH = "thigh"
     const val WAIST = "waist"
+    const val WANT_TO_UNDO_DELETE = "want_to_undo_delete"
     const val WARMUP_SETS = "warmup_sets"
     const val WARMUP_SET_1_DESCRIPTION = "warmup_set_1_description"
     const val WEIGHT = "weight"
-    const val KG = "kg"
+    const val UNDO = "undo"
 }

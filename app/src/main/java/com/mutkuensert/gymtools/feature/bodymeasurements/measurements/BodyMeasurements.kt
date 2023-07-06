@@ -27,9 +27,14 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarHost
+import androidx.compose.material.SnackbarResult
 import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.Text
 import androidx.compose.material.rememberDismissState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -37,6 +42,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,6 +65,9 @@ import com.mutkuensert.gymtools.core.getStringRes
 import com.mutkuensert.gymtools.data.BodyMeasurementDetailsDto
 import com.mutkuensert.gymtools.resources.TextResKeys
 import com.mutkuensert.gymtools.ui.theme.AppColors
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 
 private const val VERTICAL_SPACE = 20
@@ -70,19 +79,47 @@ fun BodyMeasurementsScreen(
 ) {
     val bodyMeasurements = viewModel.bodyMeasurements.collectAsStateWithLifecycle()
     val athleteNames = viewModel.athleteNames.collectAsStateWithLifecycle()
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        BodyMeasurements(
-            navigateToBodyMeasurementDetails = viewModel::navigateToBodyMeasurementDetails,
-            bodyMeasurements = bodyMeasurements.value,
-            athleteNames = athleteNames.value,
-            onNameSearch = viewModel::onNameSearch,
-            onDeleteItem = viewModel::onDeleteItem
-        )
-    }
+    Scaffold(
+        scaffoldState = scaffoldState,
+        snackbarHost = {
+            SnackbarHost(it) { data ->
+                Snackbar(
+                    snackbarData = data,
+                    actionColor = Color.White
+                )
+            }
+        },
+        content = { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                BodyMeasurements(
+                    navigateToBodyMeasurementDetails = viewModel::navigateToBodyMeasurementDetails,
+                    bodyMeasurements = bodyMeasurements.value,
+                    athleteNames = athleteNames.value,
+                    onNameSearch = viewModel::onNameSearch,
+                    onDeleteItem = viewModel::onDeleteItem,
+                    showUndoDeleteSnackbar = { action ->
+                        scope.launch {
+                            val snackbarResult = scaffoldState.snackbarHostState.showSnackbar(
+                                message = getStringRes(context, TextResKeys.WANT_TO_UNDO_DELETE),
+                                actionLabel = getStringRes(context, TextResKeys.UNDO)
+                            )
+
+                            if (snackbarResult == SnackbarResult.ActionPerformed) action()
+                        }
+                    }
+                )
+            }
+        }
+    )
 
     LaunchedEffect(true) {
         viewModel.updateBodyMeasurements()
@@ -96,7 +133,8 @@ private fun BodyMeasurements(
     bodyMeasurements: List<BodyMeasurementDetailsDto>,
     athleteNames: List<String>,
     onNameSearch: (String) -> Unit,
-    onDeleteItem: (BodyMeasurementDetailsDto) -> Unit
+    onDeleteItem: (BodyMeasurementDetailsDto) -> Unit,
+    showUndoDeleteSnackbar: (action: () -> Unit) -> Unit
 ) {
     Column(
         modifier = Modifier.requiredWidth(OVERALL_WIDTH.dp),
@@ -151,9 +189,18 @@ private fun BodyMeasurements(
                 }
             ) { bodyMeasurementDetailsDto ->
                 var isVisible by remember { mutableStateOf(true) }
+                val scope = rememberCoroutineScope()
+
                 val dismissState = rememberDismissState(confirmStateChange = { dismissValue ->
                     if (dismissValue == DismissValue.DismissedToEnd || dismissValue == DismissValue.DismissedToStart) {
-                        onDeleteItem(bodyMeasurementDetailsDto)
+                        scope.launch {
+                            showUndoDeleteSnackbar {
+                                isVisible = true
+                                this.cancel()
+                            }
+                            delay(5000L)
+                            onDeleteItem(bodyMeasurementDetailsDto)
+                        }
                         isVisible = false
                         true
                     } else {
@@ -161,6 +208,11 @@ private fun BodyMeasurements(
                         false
                     }
                 })
+
+                LaunchedEffect(isVisible) {
+                    delay(100L)
+                    if (isVisible && dismissState.currentValue != DismissValue.Default) dismissState.reset()
+                }
 
                 AnimatedVisibility(isVisible) {
                     SwipeToDismiss(
@@ -383,6 +435,7 @@ private fun PreviewBodySizeList() {
         bodyMeasurements = list,
         athleteNames = list.map { it.athleteName },
         onNameSearch = {},
-        onDeleteItem = {}
+        onDeleteItem = {},
+        showUndoDeleteSnackbar = {}
     )
 }
