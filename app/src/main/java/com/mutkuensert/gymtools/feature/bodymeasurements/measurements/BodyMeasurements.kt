@@ -26,6 +26,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
+import androidx.compose.material.RadioButtonDefaults
 import androidx.compose.material.SwipeToDismiss
 import androidx.compose.material.Text
 import androidx.compose.material.rememberDismissState
@@ -226,7 +227,8 @@ fun InfoSelector(
             ) {
                 RadioButton(
                     selected = (index == selectionIndex.value),
-                    onClick = null
+                    onClick = null,
+                    colors = RadioButtonDefaults.colors(selectedColor = AppColors.metalGray)
                 )
                 Text(
                     text = text,
