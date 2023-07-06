@@ -14,7 +14,7 @@
         android:theme="@style/Theme.GymTools"
         tools:targetApi="33">
         <activity
-            android:name=".features.home.MainActivity"
+            android:name=".feature.base.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.GymTools">
             <intent-filter>

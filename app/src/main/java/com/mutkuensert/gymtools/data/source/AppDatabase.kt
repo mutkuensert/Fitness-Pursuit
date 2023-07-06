@@ -9,5 +9,5 @@ import com.mutkuensert.gymtools.data.BodyMeasurementDetailsDto
 @Database(entities = [BodyMeasurementDetailsDto::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun bodySizesDao(): BodyMeasurementsDao
+    abstract fun bodyMeasurementsDao(): BodyMeasurementsDao
 }
