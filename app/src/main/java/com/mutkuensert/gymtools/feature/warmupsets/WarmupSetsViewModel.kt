@@ -2,9 +2,9 @@ package com.mutkuensert.gymtools.feature.warmupsets
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import kotlin.math.roundToInt
-import kotlinx.coroutines.flow.MutableStateFlow
 
 @HiltViewModel
 class WarmupSetsViewModel @Inject constructor() : ViewModel() {

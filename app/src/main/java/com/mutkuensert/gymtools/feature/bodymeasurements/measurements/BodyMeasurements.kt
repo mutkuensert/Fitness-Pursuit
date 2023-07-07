@@ -172,7 +172,7 @@ private fun BodyMeasurements(
             TextResKeys.HIPS to getStringRes(TextResKeys.HIPS),
             TextResKeys.NECK to getStringRes(TextResKeys.NECK),
             TextResKeys.SHOULDERS to getStringRes(TextResKeys.SHOULDERS),
-            TextResKeys.WAIST to getStringRes(TextResKeys.WAIST),
+            TextResKeys.WAIST to getStringRes(TextResKeys.WAIST)
         )
         val selectedInfoIndex = remember { mutableIntStateOf(0) }
 
@@ -244,7 +244,7 @@ private fun SwipeBackground() {
             .fillMaxSize()
             .padding(5.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         DeleteIcon()
         DeleteIcon()
@@ -311,7 +311,7 @@ private fun SearchResultItem(
             text = bodyMeasurementDetails.athleteName,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Bold
         )
 
         val context = LocalContext.current

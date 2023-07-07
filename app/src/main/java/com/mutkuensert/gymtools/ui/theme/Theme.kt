@@ -38,7 +38,7 @@ fun AppTheme(
     }*/
 
     MaterialTheme(
-        colors = LightColorPalette, //colors,
+        colors = LightColorPalette, // colors,
         typography = Typography,
         shapes = Shapes,
         content = content

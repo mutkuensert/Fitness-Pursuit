@@ -11,7 +11,7 @@ import javax.inject.Inject
 class NavigationBuilder @Inject constructor(
     private val navigationDispatcher: NavigationDispatcher,
     private val builders: Set<@JvmSuppressWildcards FeatureNavigationBuilder>,
-    private val baseNavigator: BaseNavigator,
+    private val baseNavigator: BaseNavigator
 ) {
     fun buildNavGraph(navGraphBuilder: NavGraphBuilder) {
         builders.forEach {

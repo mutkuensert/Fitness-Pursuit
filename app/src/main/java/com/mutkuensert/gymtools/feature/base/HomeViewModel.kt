@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val baseNavigator: BaseNavigator,
+    private val baseNavigator: BaseNavigator
 ) : ViewModel() {
 
     fun navigateToTab(route: String) {

@@ -8,16 +8,16 @@ import com.mutkuensert.gymtools.data.source.BodyMeasurementsDao
 import com.mutkuensert.gymtools.feature.bodymeasurements.navigation.ENTITY_ID
 import com.mutkuensert.gymtools.navigation.navigators.BaseNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class BodyMeasurementDetailsViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val bodyMeasurementsDao: BodyMeasurementsDao,
-    private val baseNavigator: BaseNavigator,
+    private val baseNavigator: BaseNavigator
 ) : ViewModel() {
     private var entityId: String? = savedStateHandle[ENTITY_ID]
 
@@ -41,7 +41,7 @@ class BodyMeasurementDetailsViewModel @Inject constructor(
         }
     }
 
-    fun navigateToBodyMeasurements(){
+    fun navigateToBodyMeasurements() {
         baseNavigator.navigateUp()
     }
 

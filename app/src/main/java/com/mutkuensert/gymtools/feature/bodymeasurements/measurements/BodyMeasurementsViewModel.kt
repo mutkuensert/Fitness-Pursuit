@@ -6,11 +6,11 @@ import com.mutkuensert.gymtools.data.BodyMeasurementDetailsDto
 import com.mutkuensert.gymtools.data.source.BodyMeasurementsDao
 import com.mutkuensert.gymtools.navigation.navigators.BodyMeasurementsNavigator
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class BodyMeasurementsViewModel @Inject constructor(

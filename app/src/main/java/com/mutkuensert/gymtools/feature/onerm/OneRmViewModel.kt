@@ -2,13 +2,13 @@ package com.mutkuensert.gymtools.feature.onerm
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import kotlin.math.pow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
+import javax.inject.Inject
+import kotlin.math.pow
 
 @HiltViewModel
 class OneRmViewModel @Inject constructor() : ViewModel() {

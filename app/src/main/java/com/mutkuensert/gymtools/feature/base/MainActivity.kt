@@ -6,16 +6,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.navigation.NavController
-import com.mutkuensert.gymtools.navigation.navigators.BaseNavigator
 import com.mutkuensert.gymtools.navigation.NavigationBuilder
-import com.mutkuensert.gymtools.navigation.NavigationDispatcher
 import com.mutkuensert.gymtools.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
