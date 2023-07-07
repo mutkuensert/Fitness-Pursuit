@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface BodyMeasurementsModule {
+interface BaseModule {
 
     @Binds
     fun bindNavigator(navigator: BaseNavigatorImpl): BaseNavigator

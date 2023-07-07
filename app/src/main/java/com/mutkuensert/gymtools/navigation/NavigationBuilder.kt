@@ -29,9 +29,16 @@ class NavigationBuilder @Inject constructor(
                     is NavigationType.Back -> navController.popBackStack()
                     is NavigationType.Up -> navigateUp(navController, it)
                     is NavigationType.ToRoute -> navController.navigate(it.getRoute())
+                    is NavigationType.ToTab -> navigateToTab(navController, it.route)
                 }
             }
         }
+    }
+
+    private fun navigateToTab(navController: NavHostController, route: String) {
+        val isPopped = navController.popBackStack(route, false)
+
+        if (!isPopped) navController.navigate(route)
     }
 
     private fun navigateUp(
