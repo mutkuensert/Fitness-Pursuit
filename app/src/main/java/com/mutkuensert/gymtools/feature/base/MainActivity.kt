@@ -47,23 +47,3 @@ class MainActivity : ComponentActivity() {
         windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-private fun DefaultPreview() {
-    AppTheme {
-        Home(NavigationBuilder(
-            navigationDispatcher = NavigationDispatcher(),
-            builders = setOf(),
-            baseNavigator = object : BaseNavigator {
-                override var navController: NavController? = null
-
-                override fun navigateHome() {}
-
-                override fun navigateUp(popUpTo: String?, isInclusive: Boolean) {}
-
-                override fun navigateBack() {}
-            }
-        ))
-    }
-}
