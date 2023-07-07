@@ -21,4 +21,6 @@ sealed class NavigationType {
     class Up(val route: String? = null, val isInclusive: Boolean = false) : NavigationType()
 
     class Back() : NavigationType()
+
+    class ToTab(val route: String) : NavigationType()
 }

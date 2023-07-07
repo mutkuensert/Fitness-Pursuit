@@ -38,9 +38,7 @@ fun Home(navigationBuilder: NavigationBuilder) {
         drawerContent = {
             AppDrawer(
                 onCloseDrawer = { scope.launch { scaffoldState.drawerState.close() } },
-                navigateToWarmupSets = viewModel::navigateToWarmupSets,
-                navigateToOneRm = viewModel::navigateToOneRm,
-                navigateToBodyMeasurements = viewModel::navigateToBodyMeasurements
+                navigateToTab = viewModel::navigateToTab
             )
         }
     ) { padding ->
