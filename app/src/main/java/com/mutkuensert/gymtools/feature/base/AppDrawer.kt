@@ -24,9 +24,7 @@ private const val VERTICAL_SPACE = 15
 @Composable
 fun AppDrawer(
     onCloseDrawer: () -> Unit,
-    navigateToOneRm: () -> Unit,
-    navigateToWarmupSets: () -> Unit,
-    navigateToBodyMeasurements: () -> Unit
+    navigateToTab: (route: String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -43,31 +41,31 @@ fun AppDrawer(
         ShadowedButton(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-                navigateToWarmupSets()
+                navigateToTab(Tabs.WarmupSets.route)
                 onCloseDrawer()
             }
         ) {
-            Text(text = getStringRes(TextResKeys.WARMUP_SETS))
+            Text(text = getStringRes(Tabs.WarmupSets.nameKey))
         }
 
         ShadowedButton(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-                navigateToOneRm()
+                navigateToTab(Tabs.OneRm.route)
                 onCloseDrawer()
             }
         ) {
-            Text(text = getStringRes(TextResKeys.ONE_RM))
+            Text(text = getStringRes(Tabs.OneRm.nameKey))
         }
 
         ShadowedButton(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-                navigateToBodyMeasurements()
+                navigateToTab(Tabs.BodyMeasurements.route)
                 onCloseDrawer()
             }
         ) {
-            Text(text = getStringRes(TextResKeys.BODY_MEASUREMENTS))
+            Text(text = getStringRes(Tabs.BodyMeasurements.nameKey))
         }
     }
 }
@@ -77,7 +75,6 @@ fun AppDrawer(
 private fun PreviewDrawer() {
     AppDrawer(
         onCloseDrawer = {},
-        navigateToBodyMeasurements = {},
-        navigateToOneRm = {},
-        navigateToWarmupSets = {})
+        navigateToTab = {}
+    )
 }
