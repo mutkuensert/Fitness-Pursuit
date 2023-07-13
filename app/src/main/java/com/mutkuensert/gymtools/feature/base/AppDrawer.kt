@@ -45,7 +45,7 @@ fun AppDrawer(
                 onCloseDrawer()
             }
         ) {
-            Text(text = getStringRes(Tabs.WarmupSets.nameKey))
+            Text(text = getStringRes(Tabs.WarmupSets.titleKey))
         }
 
         ShadowedButton(
@@ -55,7 +55,7 @@ fun AppDrawer(
                 onCloseDrawer()
             }
         ) {
-            Text(text = getStringRes(Tabs.OneRm.nameKey))
+            Text(text = getStringRes(Tabs.OneRm.titleKey))
         }
 
         ShadowedButton(
@@ -65,7 +65,7 @@ fun AppDrawer(
                 onCloseDrawer()
             }
         ) {
-            Text(text = getStringRes(Tabs.BodyMeasurements.nameKey))
+            Text(text = getStringRes(Tabs.BodyMeasurements.titleKey))
         }
     }
 }
