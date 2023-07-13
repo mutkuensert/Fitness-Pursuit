@@ -78,6 +78,10 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
 
     implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version"
+
+    implementation "androidx.glance:glance-appwidget:$glance_version"
+    implementation "androidx.glance:glance-material3:$glance_version"
+    debugImplementation "com.google.android.glance.tools:appwidget-viewer:$glance_experimental_tools_version"
 }
 
 kapt {

@@ -122,7 +122,7 @@ fun WarmupSets(viewModel: WarmupSetsViewModel = viewModel()) {
 
 @Preview(showSystemUi = true)
 @Composable
-fun PreviewWarmupSetsScreen() {
+private fun PreviewWarmupSetsScreen() {
     AppTheme {
         WarmupSets()
     }

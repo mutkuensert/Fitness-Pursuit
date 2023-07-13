@@ -33,4 +33,5 @@
     <string name="one_rm_info">Lütfen düzgün hesaplanması için tekrar sayısını 1 ile 10 arasında girin.</string>
     <string name="want_to_undo_delete">Silme işlemini geri almak ister misiniz?</string>
     <string name="undo">Geri al</string>
+    <string name="counter">Sayaç</string>
 </resources>

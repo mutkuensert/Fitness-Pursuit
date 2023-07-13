@@ -4,6 +4,9 @@ buildscript {
         nav_version = '2.6.0'
         room_version = '2.5.2'
         lifecycle_version = '2.6.1'
+        glance_version = '1.0.0-beta01'
+        glance_experimental_tools_version = '0.2.2'
+        compose_tooling_preview_version = '1.4.3'
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {

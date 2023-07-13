@@ -29,7 +29,7 @@ fun ShadowedButton(
 
 @Preview
 @Composable
-fun ShadowedButtonPreview() {
+private fun ShadowedButtonPreview() {
     Surface {
         Column {
             ShadowedButton(onClick = { }) {
