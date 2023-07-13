@@ -23,8 +23,9 @@ Calculate your warm-up set weights and one rep max, keep track of your body meas
 
 ## Tech
 * [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Dependency Injection
-* [Compose](https://developer.android.com/jetpack/compose) - UI App Development Toolkit
+* [Jetpack Compose](https://developer.android.com/jetpack/compose) - UI App Development Toolkit
 * [Room](https://developer.android.com/training/data-storage/room) - SQLite Library
+* [Jetpack Glance](https://developer.android.com/jetpack/compose/glance) - A framework to develop widgets
 
 
 ## License
