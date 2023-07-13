@@ -3,6 +3,6 @@
     android:targetCellWidth="2"
     android:targetCellHeight="1"
     android:description="@string/counter"
-    android:previewImage="@drawable/ic_launcher_foreground"
+    android:previewImage="@mipmap/ic_launcher"
     android:widgetCategory="home_screen">
 </appwidget-provider>
