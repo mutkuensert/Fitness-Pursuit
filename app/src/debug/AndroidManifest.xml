@@ -30,7 +30,8 @@
 
         <activity
             android:name=".WidgetViewerActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="@string/counter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
