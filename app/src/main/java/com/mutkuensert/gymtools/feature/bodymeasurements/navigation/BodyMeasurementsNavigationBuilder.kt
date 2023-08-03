@@ -3,7 +3,6 @@ package com.mutkuensert.gymtools.feature.bodymeasurements.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import androidx.navigation.navArgument
 import com.mutkuensert.gymtools.feature.bodymeasurements.detail.BodyMeasurementDetailsScreen
 import com.mutkuensert.gymtools.feature.bodymeasurements.measurements.BodyMeasurementsScreen
 import com.mutkuensert.gymtools.navigation.FeatureNavigationBuilder
@@ -25,12 +24,7 @@ class BodyMeasurementsNavigationBuilder @Inject constructor() : FeatureNavigatio
             }
 
             composable(
-                route = ROUTE_BODY_MEASUREMENT_DETAILS,
-                arguments = listOf(
-                    navArgument(ENTITY_ID) {
-                        nullable = true
-                    }
-                )
+                route = ROUTE_BODY_MEASUREMENT_DETAILS
             ) {
                 BodyMeasurementDetailsScreen()
             }
